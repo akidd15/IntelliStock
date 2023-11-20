@@ -1,4 +1,4 @@
 const Category = require('./Category');
-const Item = require('./item');
+// const Item = require('./Item');
 
-module.exports = { Category, Item };
+module.exports = { Category };
