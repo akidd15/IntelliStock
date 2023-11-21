@@ -1,26 +1,35 @@
 const typeDefs = `
+    type User {
+        _id: ID
+        username: String
+        email: String
+        password: String
+        category: [Category]!
+    }
+
     type Category{
         _id: ID
-        name: String
+        categoryName: String
         createdAt: String
         item: [Item]!
     }
 
     type Item {
         _id: ID
-        name: String
+        itemName: String
         quantity: Int
         price: Int
     }
 
     type Query {
+        user: [User]
         category: [Category]!
         item: [Item]!
     }
 
     type Mutation {
-        addCategory(name: String!): Category
-        addItem(categoryId: ID!, name: String!, quantity: Int!, price: Int!): Category
+        addCategory(categoryName: String!): Category
+        addItem(categoryId: ID!, itemName: String!, quantity: Int!, price: Int!): Category
     }
 `
 
