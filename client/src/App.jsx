@@ -6,9 +6,7 @@ import Categories from './components/categories';
 function App() {
   return (
     <>
-      <h2>IntelliStock</h2>
-      <p>App.jsx renderings...</p>
-      {/* <Landing /> */}
+      <Landing />
       {/* <Categories /> */}
     </>
   )
