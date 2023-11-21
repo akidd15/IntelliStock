@@ -1,12 +1,23 @@
 const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
 
 const categorySchema = new Schema(
     {
         name: {
             type: String,
-            required: true,
+            required: 'You need a Category!',
+            minlength: 1,
+            maxlength: 280,
+            trim: true,
         },
+
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get: (timestamp) => dateFormat(timestamp),
+        },
+        
         items: [
             {
                 name: {

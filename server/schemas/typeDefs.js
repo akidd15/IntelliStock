@@ -2,6 +2,7 @@ const typeDefs = `
     type Category{
         _id: ID
         name: String
+        createdAt: String
         item: [Item]!
     }
 
@@ -15,6 +16,11 @@ const typeDefs = `
     type Query {
         category: [Category]!
         item: [Item]!
+    }
+
+    type Mutation {
+        addCategory(name: String!): Category
+        addItem(categoryId: ID!, name: String!, quantity: Int!, price: Int!): Category
     }
 `
 
