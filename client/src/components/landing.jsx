@@ -20,8 +20,8 @@ export default function Landing() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Login</h2>
-            <label htmlFor="username">Username:</label>
+            <h1>IntelliStock</h1>
+            <label htmlFor="username"> Username </label>
             <input
                 type="text"
                 id="username"
@@ -30,7 +30,7 @@ export default function Landing() {
                 required
             />
 
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password"> Password </label>
             <input
                 type="password"
                 id="password"
