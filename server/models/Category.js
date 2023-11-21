@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const Item = require('./item');
+
 
 const categorySchema = new Schema(
     {
@@ -7,7 +7,26 @@ const categorySchema = new Schema(
             type: String,
             required: true,
         },
-        items: [Item],
+        items: [
+            {
+                name: {
+                    type: String,
+                    required: true,
+                    unique: true,
+                },
+            
+                quantity: {
+                    type: Number,
+                    required: true,
+            
+                },
+            
+                price: {
+                    type: Number, 
+                    required: true,
+                },
+            },
+        ]
     }
 );
 
