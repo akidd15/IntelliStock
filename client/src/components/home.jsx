@@ -42,7 +42,7 @@ const CategoryComponent = () => {
         <div className="low-items">
             <h3> Low Items </h3>
         </div>
-// pop up to notify user of successful category
+        
         {popUp && (
             <div className="pop-up-container">
                 <div className="pop-up-content">
