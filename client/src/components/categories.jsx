@@ -1,17 +1,27 @@
 import { useState } from 'react';
 import React from 'react';
 import Receipt from './receipt';
+import NewOrder from './newOrder';
 
 // pass arrays to function from DB
 export default function Categories() {
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpenReceipt, setModalOpenReceipt] = useState(false);
+    const [modalOpenNewOrder, setModalOpenNewOrder] = useState(false);
 
-    function openModal() {
-        setModalOpen(true);
+    function openModalReceipt() {
+        setModalOpenReceipt(true);
     }
     
-    function closeModal() {
-        setModalOpen(false);
+    function closeModalReceipt() {
+        setModalOpenReceipt(false);
+    }
+
+    function openModalNewOrder() {
+        setModalOpenNewOrder(true)
+    }
+
+    function closeModalNewOrder() {
+        setModalOpenNewOrder(false);
     }
 
     const list = [];
@@ -39,11 +49,13 @@ export default function Categories() {
             </ul>
           </div>
 
-          <button>New Order</button>
+          <button onClick={openModalNewOrder}>New Order</button>
 
-          <button onClick={openModal}>Receipt</button>
+          <NewOrder isOpen={modalOpenNewOrder} onClose={closeModalNewOrder} />
 
-          <Receipt isOpen={modalOpen} onClose={closeModal} />
+          <button onClick={openModalReceipt}>Receipt</button>
+
+          <Receipt isOpen={modalOpenReceipt} onClose={closeModalReceipt} />
         </>
     )
 };

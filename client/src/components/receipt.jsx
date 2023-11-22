@@ -6,9 +6,10 @@ export default function Receipt({ isOpen, onClose }) {
   const [quantity, setQuantity] = useState('');
   const [price, setPrice] = useState('');
   const [item, setItem] = useState('');
+  const [receiptItems, setReceiptItems] = useState([]);
   const currentDate = new Date().toLocaleDateString();
 
-  const list = [];
+  const list = ['Item1','Item2','Item3'];
 
   function handleItem(e, { value }) {
     setItem(value);
@@ -22,10 +23,21 @@ export default function Receipt({ isOpen, onClose }) {
     setPrice(value);
   }
 
+  function handleAddItem() {
+    const newItem = {
+      itemName: '',
+      price: '',
+      quantity: '',
+    };
+  
+    setReceiptItems([...receiptItems, newItem]);
+  }
+
   function resetForm() {
     setQuantity('');
     setPrice('');
     setItem('');
+    setReceiptItems([]);
   }
 
   function handleSubmit() {
@@ -44,7 +56,7 @@ export default function Receipt({ isOpen, onClose }) {
     <Modal open={isOpen} onClose={onClose}>
       <Modal.Header>Create New Receipt</Modal.Header>
       <Modal.Content>
-        <div>{currentDate}</div>
+      <label>Receipt Items:</label>
         <Dropdown
           placeholder='Select Item'
           fluid
@@ -62,8 +74,39 @@ export default function Receipt({ isOpen, onClose }) {
           value={price}
           onChange={handlePrice}
         />
+
+        {receiptItems.map((item, index) => (
+          <div key={index}>
+            <label>
+              New Item:
+              <Dropdown
+                placeholder='Select Item'
+                fluid
+                selection
+                options={list.map(item => ({ text: item, value: item }))}
+                onChange={handleItem}
+              />
+            </label>  
+            <Input
+              placeholder="Quantity"
+              value={item.quantity}
+              onChange={(e) => handleReceiptItemChange(index, 'quantity', e.target.value)}
+            /> 
+            <Input
+              placeholder="Price"
+              value={item.price}
+              onChange={(e) => handleReceiptItemChange(index, 'price', e.target.value)}
+            />           
+          </div>
+        ))}
+        <Button type="button" onClick={handleAddItem}>
+          Add Item
+        </Button>
       </Modal.Content>
       <Modal.Actions>
+        <Button color='red' onClick={() => { resetForm(); onClose(); }}>
+          Cancel
+        </Button>
         <Button color='green' onClick={handleSubmit}>
           Submit
         </Button>
