@@ -10,6 +10,7 @@ const typeDefs = `
     type Category{
         _id: ID
         categoryName: String
+        categoryAuthor: String
         createdAt: String
         item: [Item]!
     }
@@ -21,6 +22,11 @@ const typeDefs = `
         price: Int
     }
 
+    type Auth {
+        token: ID!
+        user: User
+    }
+
     type Query {
         user: [User]
         category: [Category]!
@@ -28,7 +34,9 @@ const typeDefs = `
     }
 
     type Mutation {
-        addCategory(categoryName: String!): Category
+        addUser(username: String!, email: String!, password: String!): Auth
+        login(email: String!, password: String!): Auth
+        addCategory(categoryName: String!, categoryAuthor: String!): Category
         addItem(categoryId: ID!, itemName: String!, quantity: Int!, price: Int!): Category
     }
 `

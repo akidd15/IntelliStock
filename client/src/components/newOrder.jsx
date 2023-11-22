@@ -4,7 +4,7 @@ import { Modal, Button } from 'semantic-ui-react';
 // import "react-datepicker/dist/react-datepicker.css";
 
 
-const newOrder = ({ isOpen, onClose }) => {
+const newOrder = ({ isOpen, onClose, categories, existingItems, onUpdateOrder }) => {
     const [order, setOrder] = useState({
         category: '',
         date: '',
@@ -16,17 +16,32 @@ const newOrder = ({ isOpen, onClose }) => {
     };
 
     const handleDateChange = (e) => {
-        setOrder({ ...order, date });
-    };
+        setOrder({ ...order, date: e.target.value });
+      };
+    
 
     const handleAddItem = () => {
+        // check if item exists
+        const existingItemIndex = order.items.findIndex(
+            (item) => item.itemName === order.items[order.items.length - 1].itemName
+            );
+            // checks if item already exsists to update item
+        if (existingItemIndex !== -1) {
+            const updatedItems = [...order.items];
+            const existingItem = updatedItems[existingItemIndex];
+            const newItem = { ...existingItem, quantity: existingItem.quantity + 1 };
+            updatedItems[existingItemIndex] = newItem;
+            setOrder({ ...order, items: updatedItems });
+            } else {
+        // if item doesn't exist, create a new item
         const newItem = {
             itemName: '',
             price: '',
-            quantity: '',
+            quantity: 0,
         };
 
         setOrder({ ...order, items: [...order.items, newItem] });
+    }
     };
 
     const handleItemChange = (index, field, value) => {
@@ -36,14 +51,28 @@ const newOrder = ({ isOpen, onClose }) => {
         setOrder({ ...order, items: updatedItems });
     };
 
+    const handleExistingItemSelect = (index, itemName) => {
+        const updatedItems = [...order.items];
+        updatedItems[index].itemName = itemName;
+
+        setOrder({ ...order, items: updatedItems });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Submitted New Order:", order);
-        //add logic to add quantity to exsisting item amount
+        onUpdateOrder(order);
+        // reset form
+        setOrder({
+            category: '',
+            date: '',
+            items: [],
+        });
+        onClose();
 
     };
     // allows category drop down list
-    const categoryOptions = ["Home", "Office"];
+    const categories = ["Home", "Office"];
 
 
     return (
@@ -54,9 +83,12 @@ const newOrder = ({ isOpen, onClose }) => {
                     <label>
                         Category:
                         <select value={order.category} onChange={handleCategoryChange}>
-                            {categoryOptions.map((option) => (
-                                <option key={option} value={option}>
-                                    {option}
+                            <option value='' disabled>
+                                Select a Category
+                            </option>
+                            {categories.map((category) => (
+                                <option key={category} value={category}>
+                                    {category}
                                 </option>
                             ))}
                         </select>
@@ -74,7 +106,18 @@ const newOrder = ({ isOpen, onClose }) => {
                                 Item Name:
                                 <input value={item.itemName}
                                 onChange={(e) => handleItemChange(index, 'itemName', e.target.value)}
+                                list={`existingItems-${index}`}
                                 />
+                                <datalist id={`existingItems-${index}`}>
+                                    {existingItems[order.category]?.map((existingItem) => (
+                                        <option key={existingItem} value={existingItem} />
+                                    ))}
+                                </datalist>
+                                <Button type="button"
+                                 onClick={() => handleExistingItemSelect(index, item.item)}
+                                 >
+                                    Use Existing
+                                </Button>
                             </label>
                             <label>
                                 Price:

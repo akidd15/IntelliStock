@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Form, Grid, Header, Segment, Button } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
+import { LoginForm } from './loginform'; 
+import { SignUpForm } from './signupform';
 
 export default function Landing() {
   const [username, setUsername] = useState('');
@@ -19,12 +21,12 @@ export default function Landing() {
   const handleEmail = (e) => {
     const enteredEmail = e.target.value;
     setEmail(enteredEmail);
-  
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setEmailError(emailRegex.test(enteredEmail) ? '' : 'Invalid email address');
   };
-  
+
   const handlePassword = (e) => {
     setPassword(e.target.value);
     setPasswordFinished(true);
@@ -69,12 +71,10 @@ export default function Landing() {
     e.preventDefault();
 
     if (isLoginFormValid()) {
-      // Continue with login logic
       console.log('Username: ' + username);
       console.log('Password: ' + password);
-      // Additional login logic here
+      // Add login logic here
     } else {
-      // Display an error message or handle invalid form submission
       console.log('Login form is not valid. Please check the fields.');
     }
   };
@@ -83,13 +83,11 @@ export default function Landing() {
     e.preventDefault();
 
     if (isSignUpFormValid()) {
-      // Continue with sign-up logic
       console.log('Username: ' + username);
       console.log('Email: ' + email);
       console.log('Password: ' + password);
-      // Additional sign-up logic here
+      // Add sign-up logic here
     } else {
-      // Display an error message or handle invalid form submission
       console.log('Sign-up form is not valid. Please check the fields.');
     }
   };
@@ -115,103 +113,30 @@ export default function Landing() {
           IntelliStock
         </Header>
         {!showSignUpForm ? (
-          <Form size="large" onSubmit={handleLoginSubmit}>
-            <Segment stacked>
-              <Form.Input
-                fluid
-                icon={null}
-                placeholder="Username"
-                value={username}
-                onChange={handleUsername}
-                required
-                style={{ fontSize: '1.2em', marginBottom: '1em' }}
-              />
-
-              <Form.Input
-                fluid
-                icon={null}
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={handlePassword}
-                error={passwordError !== ''}
-                required
-                style={{ fontSize: '1.2em', marginBottom: '1em' }}
-              />
-              {passwordError && (
-                <p style={{ color: 'red', fontSize: '0.9em', marginBottom: '0.5em' }}>{passwordError}</p>
-              )}
-
-              <Button color="green" fluid size="large" type="submit" style={{ fontSize: '1.2em', marginBottom: '1em' }}>
-                Login
-              </Button>
-            </Segment>
-          </Form>
+          <LoginForm
+            username={username}
+            password={password}
+            handleUsername={handleUsername}
+            handlePassword={handlePassword}
+            handleLoginSubmit={handleLoginSubmit}
+          />
         ) : (
-          <Form size="large" onSubmit={handleSignUpSubmit}>
-            <Segment stacked>
-              <Form.Input
-                fluid
-                icon={null}
-                placeholder="Username"
-                value={username}
-                onChange={handleUsername}
-                required
-                style={{ fontSize: '1.2em', marginBottom: '1em' }}
-              />
-
-              <Form.Input
-                fluid
-                icon={null}
-                placeholder="Email"
-                value={email}
-                onChange={handleEmail}
-                error={emailError !== ''}
-                required
-                style={{ fontSize: '1.2em', marginBottom: '1em' }}
-              />
-              {emailError && <p style={{ color: 'red', fontSize: '0.9em', marginBottom: '0.5em' }}>{emailError}</p>}
-
-              <Form.Input
-                fluid
-                icon={null}
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={handlePassword}
-                error={passwordError !== ''}
-                required
-                style={{ fontSize: '1.2em', marginBottom: '1em' }}
-              />
-              {passwordError && (
-                <p style={{ color: 'red', fontSize: '0.9em', marginBottom: '0.5em' }}>{passwordError}</p>
-              )}
-
-              {passwordFinished && (
-                <Form.Input
-                  fluid
-                  icon={null}
-                  placeholder="Confirm Password"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={handleConfirmPassword}
-                  error={passwordMismatch}
-                  required
-                  style={{ fontSize: '1.2em', marginBottom: '1em', borderColor: passwordMismatch ? 'red' : '' }}
-                />
-              )}
-              {passwordMismatch && (
-                <p style={{ color: 'red', fontSize: '0.9em', marginBottom: '0.5em' }}>Passwords do not match.</p>
-              )}
-
-              <Button color="green" fluid size="large" type="submit" style={{ fontSize: '1.2em', marginBottom: '1em' }}>
-                Sign Up
-              </Button>
-              <Button fluid size="large" onClick={handleCancelSignUp} style={{ fontSize: '1.2em', marginBottom: '1em' }}>
-                Cancel
-              </Button>
-            </Segment>
-          </Form>
+          <SignUpForm
+            username={username}
+            email={email}
+            password={password}
+            confirmPassword={confirmPassword}
+            passwordMismatch={passwordMismatch}
+            emailError={emailError}
+            passwordError={passwordError}
+            handleUsername={handleUsername}
+            handleEmail={handleEmail}
+            handlePassword={handlePassword}
+            handleConfirmPassword={handleConfirmPassword}
+            handleSignUpSubmit={handleSignUpSubmit}
+            handleCancelSignUp={handleCancelSignUp}
+            passwordFinished={passwordFinished}
+          />
         )}
         {!showSignUpForm && (
           <p style={{ marginTop: '1em', color: 'white' }}>
@@ -219,12 +144,9 @@ export default function Landing() {
             <span onClick={handleSignUpClick} style={{ cursor: 'pointer', color: '#3498db' }}>
                 Sign up here
             </span>
-            .
           </p>
         )}
       </Grid.Column>
     </Grid>
   );
 }
-
-
