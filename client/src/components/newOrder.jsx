@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import { Modal, Button } from 'semantic-ui-react';
 import "react-datepicker/dist/react-datepicker.css";
 
 
-const NewOrderForm = () => {
+const newOrder = ({ isOpen, onClose }) => {
     const [order, setOrder] = useState({
         category: '',
         date: '',
@@ -13,7 +14,7 @@ const NewOrderForm = () => {
     const handleCategoryChange = (e) => {
         setOrder({ ...order, category: e.target.value });
     };
-    
+
     const handleDateChange = (e) => {
         setOrder({ ...order, date });
     };
@@ -41,82 +42,66 @@ const NewOrderForm = () => {
         //add logic to add quantity to exsisting item amount
 
     };
-// allows category drop down list
+    // allows category drop down list
     const categoryOptions = ["Home", "Office"];
 
 
     return (
-        <div>
-          <h2>New Order Form</h2>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Category:
-              <select value={order.category} onChange={handleCategoryChange}>
-                <option value="" disabled>
-                  Select a category
-                </option>
-                {categoryOptions.map((category, index) => (
-                  <option key={index} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <br />
-            <label>
-              Date:
-              <DatePicker selected={order.date} onChange={handleDateChange} />
-            </label>
-            <br />
-    
-            {order.items.map((item, index) => (
-              <div key={index}>
-                <h3>Item {index + 1}</h3>
-                <label>
-                  Item Name:
-                  <input
-                    type="text"
-                    value={item.itemName}
-                    onChange={(e) =>
-                      handleItemChange(index, "itemName", e.target.value)
-                    }
-                  />
-                </label>
-                <br />
-                <label>
-                  Price:
-                  <input
-                    type="number"
-                    value={item.price}
-                    onChange={(e) =>
-                      handleItemChange(index, "price", e.target.value)
-                    }
-                  />
-                </label>
-                <br />
-                <label>
-                  Quantity:
-                  <input
-                    type="number"
-                    value={item.quantity}
-                    onChange={(e) =>
-                      handleItemChange(index, "quantity", e.target.value)
-                    }
-                  />
-                </label>
-                <br />
-              </div>
-            ))}
-    
-            <button type="button" onClick={handleAddItem}>
-              Add Item
-            </button>
-    
-            <br />
-            <button type="submit">Submit Order</button>
-          </form>
-        </div>
-      );
-    };
-    
-    export default NewOrderForm;
+        <Modal open={isOpen} onClose={onClose}>
+            <Modal.Header>Create New Order</Modal.Header>
+            <Modal.Content>
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Category:
+                        <select value={order.category} onChange={handleCategoryChange}>
+                            {categoryOptions.map((option) => (
+                                <option key={option} value={option}>
+                                    {option}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                    <br />
+                    <label>
+                        Date:
+                        <input type="date" value={order.date} onChange={handleDateChange} />
+                    </label>
+                    <br />
+                    <label>Items:</label>
+                    {order.items.map((item, index) => (
+                        <div key={index}>
+                            <label>
+                                Item Name:
+                                <input value={item.itemName}
+                                onChange={(e) => handleItemChange(index, 'itemName', e.target.value)}
+                                />
+                            </label>
+                            <label>
+                                Price:
+                                <input value={item.price}
+                                onChange={(e) => handleItemChange(index, 'price', e.target.value)}
+                                />
+                            </label>
+                            <label>
+                                Quantity:
+                                <input value={item.quantity}
+                                onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
+                                />
+                            </label>
+                        </div>
+                    ))}
+                    <Button type="button" onClick={handleAddItem}>
+                        Add Item
+                    </Button>
+                    <br />
+                    <Button color="blue" type="submit">
+                        Submit
+                    </Button>
+                </form>
+            </Modal.Content>
+        </Modal>
+
+    );
+};
+
+export default newOrder;
