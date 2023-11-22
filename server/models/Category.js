@@ -4,7 +4,7 @@ const dateFormat = require('../utils/dateFormat');
 
 const categorySchema = new Schema(
     {
-        name: {
+        categoryName: {
             type: String,
             required: 'You need a Category!',
             minlength: 1,
@@ -20,7 +20,7 @@ const categorySchema = new Schema(
         
         items: [
             {
-                name: {
+                itemName: {
                     type: String,
                     required: true,
                     unique: true,

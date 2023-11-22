@@ -6,6 +6,7 @@ import Categories from './components/categories';
 function App() {
   return (
     <>
+    
       {/* <Landing /> */}
       <Categories />
     </>
