@@ -8,12 +8,8 @@ function App() {
   return (
     <>
     
-    <Landing />
-      {/* <Categories /> */}
-      
-    
-      
-     
+      {/* <Landing /> */}
+      <Categories />
     </>
   )
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Modal, Button } from 'semantic-ui-react';
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 
 
 const newOrder = ({ isOpen, onClose, categories, existingItems, onUpdateOrder }) => {
