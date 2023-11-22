@@ -1,0 +1,42 @@
+[
+  {
+    "categoryName": "House",
+    "categoryAuthor": "Brian Kernighan"
+  },
+  {
+    "categoryName": "Pantry",
+    "categoryAuthor": "Max Kanat-Alexander"
+  },
+  {
+    "categoryName": "Work",
+    "categoryAuthor": "Why The Lucky Stiff"
+  },
+  {
+    "categoryName": "Medical Supplies",
+    "categoryAuthor": "Kent Beck"
+  },
+  {
+    "categoryName": "Something that needs counting",
+    "categoryAuthor": "Edward V. Berard"
+  },
+  {
+    "categoryName": "Forest",
+    "categoryAuthor": "Alan Kay"
+  },
+  {
+    "categoryName": "Place",
+    "categoryAuthor": "C.A.R. Hoare"
+  },
+  {
+    "categoryName": "Refridgerator",
+    "categoryAuthor": "David Thomas"
+  },
+  {
+    "categoryName": "house",
+    "categoryAuthor": "Donald Knuth"
+  },
+  {
+    "categoryName": "Park",
+    "categoryAuthor": "Lernantino"
+  }
+]
