@@ -19,12 +19,12 @@ export default function Landing() {
   const handleEmail = (e) => {
     const enteredEmail = e.target.value;
     setEmail(enteredEmail);
-
+  
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setEmailError(emailRegex.test(enteredEmail) ? '' : 'Invalid email address');
   };
-
+  
   const handlePassword = (e) => {
     setPassword(e.target.value);
     setPasswordFinished(true);
