@@ -7,13 +7,9 @@ import Home from './components/home';
 function App() {
   return (
     <>
-    
-    <Categories />
-      {/* <Categories /> */}
-      
-    
-      
-     
+      <Landing /> 
+    {/*   <Categories /> */}
+main
     </>
   )
 }

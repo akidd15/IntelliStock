@@ -9,11 +9,11 @@ export default function Categories() {
     const [modalOpenNewOrder, setModalOpenNewOrder] = useState(false);
 
     function openModalReceipt() {
-        setModalOpen(true);
+        setModalOpenReceipt(true);
     }
     
     function closeModalReceipt() {
-        setModalOpen(false);
+        setModalOpenReceipt(false);
     }
 
     function openModalNewOrder() {
