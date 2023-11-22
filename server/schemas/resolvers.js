@@ -1,4 +1,4 @@
-const { Catergory, User } = require('../models');
+const { Category, User } = require('../models');
 
 const resolvers = {
     // Query: {
@@ -44,7 +44,7 @@ const resolvers = {
       },
 
       addItem: async (parent, { categoryId, itemName, quantity, price }) => {
-        return Catergory.findOneAndUpdate(
+        return Category.findOneAndUpdate(
           { _id: categoryId },
           {
             $addToSet: { items: { itemName, quantity, price } },
