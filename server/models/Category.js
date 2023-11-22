@@ -27,19 +27,19 @@ const categorySchema = new Schema({
         {
             itemName: {
                 type: String,
-                required: true,
-                unique: true,
+                required: false,
+                
             },
         
             quantity: {
                 type: Number,
-                required: true,
+                required: false,
         
             },
         
             price: {
                 type: Number, 
-                required: true,
+                required: false,
             },
         },
     ]
