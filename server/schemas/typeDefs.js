@@ -10,6 +10,7 @@ const typeDefs = `
     type Category{
         _id: ID
         categoryName: String
+        categoryAuthor: String
         createdAt: String
         item: [Item]!
     }
@@ -27,19 +28,18 @@ const typeDefs = `
     }
 
     type Query {
-        user: [User]
-        category: [Category]!
-        item: [Item]!
+        users: [User]
+        user(username: String!): User
+        categories(username: String): [Category]
+        category(categoryId: ID!): Category
     }
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
-        addCategory(categoryName: String!): Category
+        addCategory(categoryName: String!, categoryAuthor: String!): Category
         addItem(categoryId: ID!, itemName: String!, quantity: Int!, price: Int!): Category
     }
 `
 
-
 module.exports = typeDefs;
-// do we need ID? 
