@@ -1,6 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import { Modal, Button, Dropdown, Input } from 'semantic-ui-react';
+// import { useMutation } from "@apollo/client";
+// import { QUERY_USER } from "../utils/queries";
+// import { QUERY_ITEM } from '../utils/queries';
+// import { QUERY_CATEGORY } from '../utils/queries'
+// import { LOGIN_USER } from '../utils/mutations';
+// import { ADD_ITEM, REMOVE_ITEM } from '../utils/mutations';
+// import { ADD_CATEGORY } from '../utils/mutations';
 
 export default function Receipt({ isOpen, onClose }) {
   const [quantity, setQuantity] = useState('');
@@ -23,14 +30,17 @@ export default function Receipt({ isOpen, onClose }) {
     setPrice(value);
   }
 
-  function handleAddItem() {
-    const newItem = {
-      itemName: '',
-      price: '',
-      quantity: '',
-    };
+  function handleRemoveItem (index) {
+    const updatedItems = [...receiptItems];
+    updatedItems.splice(index, 1);
+    setReceiptItems(updatedItems);
+    // const newItem = {
+    //   itemName: '',
+    //   price: '',
+    //   quantity: '',
+    // };
   
-    setReceiptItems([...receiptItems, newItem]);
+   // setReceiptItems([...receiptItems, newItem]);
   }
 
   function resetForm() {
@@ -99,7 +109,7 @@ export default function Receipt({ isOpen, onClose }) {
             />           
           </div>
         ))}
-        <Button type="button" onClick={handleAddItem}>
+        <Button type="button" onClick={handleRemoveItem}>
           Add Item
         </Button>
       </Modal.Content>
