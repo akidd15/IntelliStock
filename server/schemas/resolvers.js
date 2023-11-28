@@ -45,9 +45,10 @@ const resolvers = {
 
     addCategory: async (parent, { categoryName, categoryAuthor } ) => {
       const category = await Category.create({ categoryAuthor, categoryName });
+
       await User.findOneAndUpdate(
         { username: categoryAuthor },
-        { $addToSet: { category: category._id } }
+        { $addToSet: { categories: category._id } }
       );
 
       return category;
