@@ -1,21 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 const Home = () => {
     // state to hold list item
     const [category, setCategory] = useState([]);
     const [newCategory, setNewCategory] = useState('');
     const [popUp, setPopUp] = useState(false);
-
-    // const fetchCategories = async () => {
-    //     try {
-    //         const response = await fetch('/api/....');
-    //         const data = response.json();
-    //         setCategory(data.categories);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
-
+    const history = useHistory();
 
     const handleAddCategory = () => {
         if (newCategory.trim() !== '') {
@@ -33,10 +23,13 @@ const Home = () => {
     return (
         <div className="main-container">
             <div className="list-container">
-            <h2>Welcome!</h2>
+            <h1>Welcome!</h1>
+            <h3>My Categories</h3>
         <ul>
-            {category.map((category, index) => (
-                <li key={index}>{category}</li>
+            {categories.map((category, index) => (
+                <li key={index}>
+                    <Link to={`/categories/${index}`}>{category}</Link>
+                </li>
             ))}
         </ul>
 
