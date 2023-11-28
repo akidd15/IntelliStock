@@ -1,11 +1,12 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 const Home = () => {
     // state to hold list item
     const [category, setCategory] = useState([]);
     const [newCategory, setNewCategory] = useState('');
     const [popUp, setPopUp] = useState(false);
-    const history = useHistory();
 
     const handleAddCategory = () => {
         if (newCategory.trim() !== '') {
@@ -13,6 +14,7 @@ const Home = () => {
             setNewCategory('');
             // open the pop up to notify the user "Category added successfully!"
             setPopUp(true);
+
         }
     };
 
@@ -26,7 +28,7 @@ const Home = () => {
             <h1>Welcome!</h1>
             <h3>My Categories</h3>
         <ul>
-            {categories.map((category, index) => (
+            {category.map((category, index) => (
                 <li key={index}>
                     <Link to={`/categories/${index}`}>{category}</Link>
                 </li>
