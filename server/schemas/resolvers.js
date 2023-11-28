@@ -1,4 +1,5 @@
 const { Category, User } = require('../models');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
@@ -12,7 +13,7 @@ const resolvers = {
       const params = username ? { username } : {};
       return Category.find(params).sort({ createdAt: -1 });
     },
-    thought: async (parent, { categoryId }) => {
+    category: async (parent, { categoryId }) => {
       return Category.findOne({ _id: categoryId });
     },
   },
