@@ -28,9 +28,10 @@ const typeDefs = `
     }
 
     type Query {
-        user: [User]
-        category: [Category]!
-        item: [Item]!
+        users: [User]
+        user(username: String!): User
+        categories(username: String): [Category]
+        category(categoryId: ID!): Category
     }
 
     type Mutation {
@@ -41,6 +42,4 @@ const typeDefs = `
     }
 `
 
-
 module.exports = typeDefs;
-// do we need ID? 
