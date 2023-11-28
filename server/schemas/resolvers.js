@@ -13,7 +13,7 @@ const resolvers = {
       const params = username ? { username } : {};
       return Category.find(params).sort({ createdAt: -1 });
     },
-    thought: async (parent, { categoryId }) => {
+    category: async (parent, { categoryId }) => {
       return Category.findOne({ _id: categoryId });
     },
   },
