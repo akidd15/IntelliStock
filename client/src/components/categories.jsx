@@ -2,11 +2,13 @@ import { useState } from 'react';
 import React from 'react';
 import Receipt from './receipt';
 import NewOrder from './newOrder';
+import Home from './home';
 
 // pass arrays to function from DB
 export default function Categories() {
     const [modalOpenReceipt, setModalOpenReceipt] = useState(false);
     const [modalOpenNewOrder, setModalOpenNewOrder] = useState(false);
+    const [showHome, setShowHome] = useState(false);
 
     function openModalReceipt() {
         setModalOpenReceipt(true);
@@ -24,14 +26,21 @@ export default function Categories() {
         setModalOpenNewOrder(false);
     }
 
+    function handleBackToHome() {
+        setShowHome(true);
+    };
+
+    if (showHome) {
+        return <Home />;
+      }
+
     const list = [];
     const lowInventory = [];
 
     return (
         <>
           <h2>(list name)</h2>
-          {/* add page navigation logic to button */}
-          <button>Back to Home</button>
+          <button onClick={handleBackToHome}>Back to Home</button>
           <div className="container">
             <h3>Items</h3>
             <ul>

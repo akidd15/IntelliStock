@@ -1,10 +1,21 @@
 import React from "react";
-import { useState } from "react";
-const CategoryComponent = () => {
+import { useState, useEffect } from "react";
+const Home = () => {
     // state to hold list item
-    const [category, setCategory] = useState(['Office', 'Home']);
+    const [category, setCategory] = useState([]);
     const [newCategory, setNewCategory] = useState('');
     const [popUp, setPopUp] = useState(false);
+
+    // const fetchCategories = async () => {
+    //     try {
+    //         const response = await fetch('/api/....');
+    //         const data = response.json();
+    //         setCategory(data.categories);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
+
 
     const handleAddCategory = () => {
         if (newCategory.trim() !== '') {
@@ -57,4 +68,4 @@ const CategoryComponent = () => {
     );
 };
 
-export default CategoryComponent;
+export default Home;

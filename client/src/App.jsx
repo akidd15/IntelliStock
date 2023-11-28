@@ -8,10 +8,10 @@ function App() {
   return (
     <>
       <Home />
-      {/* <Landing />
-      <Categories /> */}
+      {/* <Landing /> */}
+      {/* <Categories /> */}
     </>
   )
 }
 
-export default App
+export default App;
