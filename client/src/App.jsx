@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Home />
-      {/* <Landing />
+      {/* <Landing /> 
       <Categories /> */}
     </>
   )
