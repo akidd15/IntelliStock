@@ -2,18 +2,26 @@ const db = require('../config/connection');
 const { User, Category } = require('../models');
 const userSeeds = require('./userSeeds.json');
 const categorySeeds = require('./categorySeeds.json');
+const itemSeeds = require('./itemSeeds.json'); // Add this line
 const cleanDB = require('./cleanDB');
 
 db.once('open', async () => {
   try {
     await cleanDB('Category', 'categories');
-
     await cleanDB('User', 'users');
 
-    await User.create(userSeeds);
+    const users = await User.create(userSeeds);
 
     for (let i = 0; i < categorySeeds.length; i++) {
-      const { _id, categoryAuthor } = await Category.create(categorySeeds[i]);
+      const categorySeed = categorySeeds[i];
+
+      // Create a category
+      const { _id, categoryAuthor } = await Category.create({
+        ...categorySeed,
+        items: itemSeeds, // Add items to the category
+      });
+
+      // Find the user and update categories
       const user = await User.findOneAndUpdate(
         { username: categoryAuthor },
         {
