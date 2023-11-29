@@ -30,17 +30,14 @@ export default function Receipt({ isOpen, onClose }) {
     setPrice(value);
   }
 
-  function handleRemoveItem (index) {
-    const updatedItems = [...receiptItems];
-    updatedItems.splice(index, 1);
-    setReceiptItems(updatedItems);
-    // const newItem = {
-    //   itemName: '',
-    //   price: '',
-    //   quantity: '',
-    // };
+  function handleAddItem() {
+    const newItem = {
+      itemName: '',
+      price: '',
+      quantity: '',
+    };
   
-   // setReceiptItems([...receiptItems, newItem]);
+    setReceiptItems([...receiptItems, newItem]);
   }
 
   function resetForm() {
@@ -109,7 +106,7 @@ export default function Receipt({ isOpen, onClose }) {
             />           
           </div>
         ))}
-        <Button type="button" onClick={handleRemoveItem}>
+        <Button type="button" onClick={handleAddItem}>
           Add Item
         </Button>
       </Modal.Content>
@@ -124,4 +121,3 @@ export default function Receipt({ isOpen, onClose }) {
     </Modal>
   );
 };
-
