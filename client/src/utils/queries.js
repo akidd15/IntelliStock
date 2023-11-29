@@ -24,20 +24,20 @@ query user($username: String!) {
 `;
 
 export const QUERY_CATEGORIES = gql`
-  query getCategories {
-  categories {
-    _id
-    categoryName
-    categoryAuthor
-    createdAt
-    items {
+  query getCategories($username: String) {
+    categories(username: $username) {
       _id
-      itemName
-      quantity
-      price
+      categoryName
+      categoryAuthor
+      createdAt
+      items {
+        _id
+        itemName
+        quantity
+        price
+      }
     }
   }
-}
 `;
 
 export const QUERY_SINGLE_CATEGORY = gql`
@@ -57,6 +57,13 @@ export const QUERY_SINGLE_CATEGORY = gql`
 }
 `;
 
-export const QUERY_ITEMS = gpl`
-  
+export const QUERY_ITEMS_BY_AUTHOR = gql`
+  query ItemsByAuthor($categoryAuthor: String) {
+    itemsByAuthor(categoryAuthor: $categoryAuthor) {
+      _id
+      itemName
+      quantity
+      price
+    }
+  }
 `
