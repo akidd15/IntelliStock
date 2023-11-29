@@ -25,8 +25,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_CATEGORY = gql`
-  mutation addCategory($categoryName: String!) {
-  addCategory(categoryName: $categoryName) {
+  mutation addCategory($categoryName: String!,$categoryAuthor: String!) {
+  addCategory(categoryName: $categoryName, categoryAuthor: $categoryAuthor) {
     _id
     categoryName
     categoryAuthor
