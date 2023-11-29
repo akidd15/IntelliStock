@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React from 'react';
+import { useState } from 'react';
 import { Modal, Button, Dropdown, Input } from 'semantic-ui-react';
 // import { useMutation } from "@apollo/client";
 // import { QUERY_USER } from "../utils/queries";
@@ -8,65 +8,52 @@ import { Modal, Button, Dropdown, Input } from 'semantic-ui-react';
 // import { LOGIN_USER } from '../utils/mutations';
 // import { ADD_ITEM, REMOVE_ITEM } from '../utils/mutations';
 // import { ADD_CATEGORY } from '../utils/mutations';
-// import "react-datepicker/dist/react-datepicker.css";
-
-
-export default function newOrder({ isOpen, onClose }) {
+export default function Receipt({ isOpen, onClose }) {
   const [quantity, setQuantity] = useState('');
   const [price, setPrice] = useState('');
   const [item, setItem] = useState('');
-  const [newOrderItems, setNewOrderItems] = useState([]);
+  const [newOrderItems, setnewOrderItems] = useState([]);
   const currentDate = new Date().toLocaleDateString();
-
-  const list = ['Item1', 'Item2', 'Item3'];
+  const list = ['Item1','Item2','Item3'];
 
   function handleItem(e, { value }) {
     setItem(value);
   }
-
   function handleQuantity(e, { value }) {
     setQuantity(value);
   }
-
   function handlePrice(e, { value }) {
     setPrice(value);
   }
-
   function handleAddItem() {
     const newItem = {
       itemName: '',
       price: '',
       quantity: '',
     };
-
-    setNewOrderItems([...newOrderItems, newItem]);
+    setnewOrderItems([...newOrderItems, newItem]);
   }
-
   function resetForm() {
     setQuantity('');
     setPrice('');
     setItem('');
-    setNewOrderItems([]);
+    setnewOrderItems([]);
   }
-
   function handleSubmit() {
-    console.log('New Order successfully created:', {
+    console.log('Receipt successfully created:', {
       date: currentDate,
       item: item,
       quantity: quantity,
       price: price
     })
-
     resetForm();
     onClose();
   }
-
-
   return (
     <Modal open={isOpen} onClose={onClose}>
-      <Modal.Header>Create New Order</Modal.Header>
+      <Modal.Header>Create New Receipt</Modal.Header>
       <Modal.Content>
-        <label>New Items:</label>
+      <label>Receipt Items:</label>
         <Dropdown
           placeholder='Select Item'
           fluid
@@ -84,7 +71,6 @@ export default function newOrder({ isOpen, onClose }) {
           value={price}
           onChange={handlePrice}
         />
-
         {newOrderItems.map((item, index) => (
           <div key={index}>
             <label>
@@ -100,12 +86,12 @@ export default function newOrder({ isOpen, onClose }) {
             <Input
               placeholder="Quantity"
               value={item.quantity}
-              onChange={(e) => handleNewOrderItemChange(index, 'quantity', e.target.value)}
+              onChange={(e) => handlenewOrderItemChange(index, 'quantity', e.target.value)}
             />
             <Input
               placeholder="Price"
               value={item.price}
-              onChange={(e) => handleNewOrderItemChange(index, 'price', e.target.value)}
+              onChange={(e) => handlenewOrderItemChange(index, 'price', e.target.value)}
             />
           </div>
         ))}

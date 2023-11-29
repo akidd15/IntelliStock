@@ -1,60 +1,69 @@
-// import { gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 
-// export const QUERY_USER = gql`
-//   query user($username: String!) {
-//     user(username: $username) {
-//       _id
-//       username
-//       email
-//       thoughts {
-//         _id
-//         thoughtText
-//         createdAt
-//       }
-//     }
-//   }
-// `;
+export const QUERY_USER = gql`
+query user($username: String!) {
+  user(username: $username) {
+    _id
+    username
+    email
+    password
+    categories {
+      _id
+      categoryName
+      categoryAuthor
+      createdAt
+      items {
+        _id
+        itemName
+        quantity
+        price
+      }
+    }
+  }
+}
+`;
 
-// export const QUERY_THOUGHTS = gql`
-//   query getThoughts {
-//     thoughts {
-//       _id
-//       thoughtText
-//       thoughtAuthor
-//       createdAt
-//     }
-//   }
-// `;
+export const QUERY_CATEGORIES = gql`
+  query getCategories($username: String) {
+    categories(username: $username) {
+      _id
+      categoryName
+      categoryAuthor
+      createdAt
+      items {
+        _id
+        itemName
+        quantity
+        price
+      }
+    }
+  }
+`;
 
-// export const QUERY_SINGLE_THOUGHT = gql`
-//   query getSingleThought($thoughtId: ID!) {
-//     thought(thoughtId: $thoughtId) {
-//       _id
-//       thoughtText
-//       thoughtAuthor
-//       createdAt
-//       comments {
-//         _id
-//         commentText
-//         commentAuthor
-//         createdAt
-//       }
-//     }
-//   }
-// `;
+export const QUERY_SINGLE_CATEGORY = gql`
+  query getSingleCategory($categoryId: ID!) {
+  category(categoryId: $categoryId) {
+    _id
+    categoryName
+    categoryAuthor
+    createdAt
+    items {
+      _id
+      itemName
+      quantity
+      price
+    }
+  }
+}
+`;
 
-// export const QUERY_ME = gql`
-//   query me {
-//     me {
-//       _id
-//       username
-//       email
-//       thoughts {
-//         _id
-//         thoughtText
-//         thoughtAuthor
-//         createdAt
-//       }
-//     }
-//   }
-// `;
+export const QUERY_ITEMS_BY_AUTHOR = gql`
+  query ItemsByAuthor($categoryAuthor: String) {
+    itemsByAuthor(categoryAuthor: $categoryAuthor) {
+      _id
+      itemName
+      quantity
+      price
+    }
+  }
+`

@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
-const CategoryComponent = () => {
+import { Link } from "react-router-dom";
+
+const Home = () => {
     // state to hold list item
-    const [category, setCategory] = useState(['Office', 'Home']);
+    const [category, setCategory] = useState([]);
     const [newCategory, setNewCategory] = useState('');
     const [popUp, setPopUp] = useState(false);
 
@@ -12,6 +14,7 @@ const CategoryComponent = () => {
             setNewCategory('');
             // open the pop up to notify the user "Category added successfully!"
             setPopUp(true);
+
         }
     };
 
@@ -22,10 +25,13 @@ const CategoryComponent = () => {
     return (
         <div className="main-container">
             <div className="list-container">
-            <h2>Welcome!</h2>
+            <h1>Welcome!</h1>
+            <h3>My Categories</h3>
         <ul>
             {category.map((category, index) => (
-                <li key={index}>{category}</li>
+                <li key={index}>
+                    <Link to={`/categories/${index}`}>{category}</Link>
+                </li>
             ))}
         </ul>
 
@@ -57,4 +63,4 @@ const CategoryComponent = () => {
     );
 };
 
-export default CategoryComponent;
+export default Home;

@@ -4,7 +4,7 @@ const typeDefs = `
         username: String
         email: String
         password: String
-        category: [Category]!
+        categories: [Category]!
     }
 
     type Category{
@@ -12,7 +12,7 @@ const typeDefs = `
         categoryName: String
         categoryAuthor: String
         createdAt: String
-        item: [Item]!
+        items: [Item]!
     }
 
     type Item {
@@ -32,6 +32,8 @@ const typeDefs = `
         user(username: String!): User
         categories(username: String): [Category]
         category(categoryId: ID!): Category
+        itemsByAuthor(categoryAuthor: String): [Item]
+        item(itemId: ID!): Item
     }
 
     type Mutation {
