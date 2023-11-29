@@ -13,7 +13,7 @@ export default function Receipt({ isOpen, onClose }) {
   const [price, setPrice] = useState('');
   const [item, setItem] = useState('');
   const [newOrderItems, setnewOrderItems] = useState([]);
-  const currentDate = new Date().toLocaleDateString();
+ const currentDate = new Date().toLocaleDateString();
   const list = ['Item1','Item2','Item3'];
 
   function handleItem(e, { value }) {
@@ -25,14 +25,14 @@ export default function Receipt({ isOpen, onClose }) {
   function handlePrice(e, { value }) {
     setPrice(value);
   }
-  function handleAddItem() {
-    const newItem = {
-      itemName: '',
-      price: '',
-      quantity: '',
-    };
-    setnewOrderItems([...newOrderItems, newItem]);
-  }
+  // function handleAddItem() {
+  //   const newItem = {
+  //     itemName: '',
+  //     price: '',
+  //     quantity: '',
+  //   };
+  //   setnewOrderItems([...newOrderItems, newItem]);
+  // }
   function resetForm() {
     setQuantity('');
     setPrice('');
@@ -51,9 +51,9 @@ export default function Receipt({ isOpen, onClose }) {
   }
   return (
     <Modal open={isOpen} onClose={onClose}>
-      <Modal.Header>Create New Receipt</Modal.Header>
+      <Modal.Header>Create New Order</Modal.Header>
       <Modal.Content>
-      <label>Receipt Items:</label>
+      <label>New Order:</label>
         <Dropdown
           placeholder='Select Item'
           fluid
@@ -95,9 +95,9 @@ export default function Receipt({ isOpen, onClose }) {
             />
           </div>
         ))}
-        <Button type="button" onClick={handleAddItem}>
+        {/* <Button type="button" onClick={handleAddItem}>
           Add Item
-        </Button>
+        </Button> */}
       </Modal.Content>
       <Modal.Actions>
         <Button color='red' onClick={() => { resetForm(); onClose(); }}>
