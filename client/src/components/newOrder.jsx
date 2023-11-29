@@ -13,12 +13,18 @@ import { Modal, Button, Dropdown, Input } from 'semantic-ui-react';
 
 export default function newOrder({ isOpen, onClose }) {
   const [quantity, setQuantity] = useState('');
+  //const [initialQuantity, setInitialQuantity] = useState('');
   const [price, setPrice] = useState('');
   const [item, setItem] = useState('');
   const [newOrderItems, setNewOrderItems] = useState([]);
   const currentDate = new Date().toLocaleDateString();
+ // const [minQuantity, setMinQuantity] = useState('');
 
   const list = ['Item1', 'Item2', 'Item3'];
+
+  // function handleMinQuantity(e, { value }) {
+  //   setMinQuantity(value);
+  // }
 
   function handleItem(e, { value }) {
     setItem(value);
@@ -32,20 +38,42 @@ export default function newOrder({ isOpen, onClose }) {
     setPrice(value);
   }
 
+
   function handleAddItem() {
     const newItem = {
-      itemName: '',
-      price: '',
-      quantity: '',
+      itemName: item,
+      quantity: parseInt(quantity),
+      price: parseFloat(price),
+      // minQuantity: parseInt(minQuantity),
+      // isLow: parseInt(quantity) < parseInt(minQuantity), // Check if quantity is below minimum
     };
+    // const newItem = {
+    //   itemName: '',
+    //   price: '',
+    //   quantity: '',
+    // };
 
     setNewOrderItems([...newOrderItems, newItem]);
+  }
+
+  function handleNewOrderItemChange(index, key, value) {
+    const updatedItems = [...newOrderItems];
+    updatedItems[index][key] = value;
+
+    // Update isLow flag when quantity or minQuantity changes
+    // if (key === 'quantity' || key === 'minQuantity') {
+    //   updatedItems[index].isLow = parseInt(updatedItems[index].quantity) < parseInt(updatedItems[index].minQuantity);
+
+    // }
+
+    setNewOrderItems(updatedItems);
   }
 
   function resetForm() {
     setQuantity('');
     setPrice('');
     setItem('');
+   // setMinQuantity('');
     setNewOrderItems([]);
   }
 
@@ -55,7 +83,8 @@ export default function newOrder({ isOpen, onClose }) {
       item: item,
       quantity: quantity,
       price: price
-    })
+      //minimum: minimumqty
+    });
 
     resetForm();
     onClose();
@@ -84,9 +113,16 @@ export default function newOrder({ isOpen, onClose }) {
           value={price}
           onChange={handlePrice}
         />
+        <Input
+          placeholder="Minimum Quantity"
+          value={item.minQuantity}
+          onChange={(e) => handleNewOrderItemChange(item, 'minQuantity', e.target.value)}
+        />
+      
+
 
         {newOrderItems.map((item, index) => (
-          <div key={index}>
+          <div key={index} className={item.isLow ? 'low-item' : ''}>
             <label>
               New Item:
               <Dropdown
@@ -94,7 +130,7 @@ export default function newOrder({ isOpen, onClose }) {
                 fluid
                 selection
                 options={list.map(item => ({ text: item, value: item }))}
-                onChange={handleItem}
+                onChange={(e, { value }) => handleNewOrderItemChange(index, 'itemName', value)}
               />
             </label>
             <Input
@@ -107,6 +143,14 @@ export default function newOrder({ isOpen, onClose }) {
               value={item.price}
               onChange={(e) => handleNewOrderItemChange(index, 'price', e.target.value)}
             />
+            <Input
+              
+              placeholder="Minimum Quantity"
+              value={isNaN(item.minQuantity) ? '' : item.minQuantity}
+              onChange={(e) => handleNewOrderItemChange(index, 'minQuantity', e.target.value)}
+            />
+
+            {item.isLow && <span className="low-item-indicator">Low Quantity!</span>}
           </div>
         ))}
         <Button type="button" onClick={handleAddItem}>

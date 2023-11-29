@@ -2,6 +2,7 @@ import { useState } from 'react';
 import React from 'react';
 import Receipt from './receipt';
 import NewOrder from './newOrder';
+import { Link } from 'react-router-dom';
 
 // pass arrays to function from DB
 export default function Categories() {
@@ -30,8 +31,9 @@ export default function Categories() {
     return (
         <>
           <h2>(list name)</h2>
-          {/* add page navigation logic to button */}
-          <button>Back to Home</button>
+          <Link to="/home">
+            <button>Back to Home</button>
+        </Link>
           <div className="container">
             <h3>Items</h3>
             <ul>

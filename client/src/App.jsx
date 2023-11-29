@@ -1,17 +1,28 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './components/landing';
 import Categories from './components/categories';
-import NewOrder from './components/newOrder';
 import Home from './components/home';
 
 function App() {
   return (
-    <>
-      <Home />
-      {/* <Landing /> 
-      <Categories /> */}
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/categories" element={<Categories />}>
+          <Route path=":index" element={CategoryDetail} />
+        </Route>
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+const CategoryDetail = ({ params, categories }) => {
+  const index = params.index;
+  const category = categories[index];
+
+  return <Categories category={category} />;
+};
+
+
+export default App;
