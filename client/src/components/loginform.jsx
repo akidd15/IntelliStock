@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Form, Segment, Button } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
@@ -8,9 +8,11 @@ import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
  export const LoginForm = (props) => {
-  const [formState, setFormState] = useState({ email: '', password: '', username: ''});
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  // removed username: ''
+  const [formState, setFormState] = useState({ email: '' , password: '' });
+  // commented out
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
   const [login, { error, data }] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
@@ -32,9 +34,12 @@ import Auth from '../utils/auth';
     try {
       const { data } = await login({
         variables: {
-          email: formState.email,
-          password: formState.password,
-          username: formState.username, },
+          ...formState
+          //changed to above
+          // email: formState.email,
+          // password: password,
+          // username: username, 
+        },
       });
 
       Auth.login(data.login.token);
@@ -45,6 +50,7 @@ import Auth from '../utils/auth';
     // clear form values
     setFormState({
       email: '',
+      // username: '',
       password: '',
     });
   };
@@ -56,8 +62,13 @@ import Auth from '../utils/auth';
         <Form.Input
           fluid
           icon={null}
-          placeholder="Username"
-          value={setUsername.username}
+          placeholder="Email"
+          name="email"
+          type="email"
+          value={
+            formState.email
+            // setUsername.username
+          }
           onChange={handleChange}
           required
           style={{ fontSize: '1.2em', marginBottom: '1em' }}
@@ -67,8 +78,12 @@ import Auth from '../utils/auth';
           fluid
           icon={null}
           placeholder="Password"
+          name="password"
           type="password"
-          value={setPassword.password}
+          value={
+            formState.password
+            // setPassword.password
+          }
           onChange={handleChange}
           required
           style={{ fontSize: '1.2em', marginBottom: '1em' }}
