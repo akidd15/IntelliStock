@@ -30,6 +30,7 @@ export default function Receipt({ isOpen, onClose }) {
     setPrice(value);
   }
 
+  // Function not currently in use.
   function handleAddItem() {
     const newItem = {
       itemName: '',
@@ -106,9 +107,11 @@ export default function Receipt({ isOpen, onClose }) {
             />           
           </div>
         ))}
+        {/* Striving for MVP. Feature not yet ready
+        
         <Button type="button" onClick={handleAddItem}>
           Add Item
-        </Button>
+        </Button> */}
       </Modal.Content>
       <Modal.Actions>
         <Button color='red' onClick={() => { resetForm(); onClose(); }}>
