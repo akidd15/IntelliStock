@@ -17,6 +17,8 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.7",
+    "graphql": "^16.8.1",
     "react-datepicker": "^4.21.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4"
