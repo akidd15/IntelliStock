@@ -32,6 +32,8 @@ const typeDefs = `
         user(username: String!): User
         categories(username: String): [Category]
         category(categoryId: ID!): Category
+        itemsByAuthor(categoryAuthor: String): [Item]
+        item(itemId: ID!): Item
     }
 
     type Mutation {
