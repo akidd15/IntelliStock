@@ -31,7 +31,7 @@ export const ADD_CATEGORY = gql`
     categoryName
     categoryAuthor
     createdAt
-    item {
+    items {
       _id
       itemName
       quantity
@@ -41,33 +41,20 @@ export const ADD_CATEGORY = gql`
 }
 `;
 
-// export const ADD_ITEM = gql`
-//   mutation addItem($itemName: String!) {
-//     addItem(itemName: $itemName) {
-//       _id
-//       thoughtText
-//       thoughtAuthor
-//       createdAt
-//       comments {
-//         _id
-//         commentText
-//       }
-//     }
-//   }
-// `;
+export const ADD_ITEM = gql`
+  mutation AddItem($categoryId: ID!, $itemName: String!, $quantity: Int!, $price: Int!) {
+  addItem(categoryId: $categoryId, itemName: $itemName, quantity: $quantity, price: $price) {
+    _id
+    categoryName
+    categoryAuthor
+    createdAt
+    items {
+      _id
+      itemName
+      quantity
+      price
+    }
+  }
+}
+`;
 
-// export const ADD_COMMENT = gql`
-//   mutation addComment($thoughtId: ID!, $commentText: String!) {
-//     addComment(thoughtId: $thoughtId, commentText: $commentText) {
-//       _id
-//       thoughtText
-//       thoughtAuthor
-//       createdAt
-//       comments {
-//         _id
-//         commentText
-//         createdAt
-//       }
-//     }
-//   }
-// `;

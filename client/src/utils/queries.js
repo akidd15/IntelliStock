@@ -6,19 +6,57 @@ query user($username: String!) {
     _id
     username
     email
+    password
     categories {
+      _id
       categoryName
+      categoryAuthor
       createdAt
-      item {
+      items {
         _id
         itemName
         quantity
         price
       }
-      _id
     }
   }
 }
 `;
 
+export const QUERY_CATEGORIES = gql`
+  query getCategories {
+  categories {
+    _id
+    categoryName
+    categoryAuthor
+    createdAt
+    items {
+      _id
+      itemName
+      quantity
+      price
+    }
+  }
+}
+`;
 
+export const QUERY_SINGLE_CATEGORY = gql`
+  query getSingleCategory($categoryId: ID!) {
+  category(categoryId: $categoryId) {
+    _id
+    categoryName
+    categoryAuthor
+    createdAt
+    items {
+      _id
+      itemName
+      quantity
+      price
+    }
+  }
+}
+`;
+
+export const QUERY_ITEMS = gpl`
+  
+`

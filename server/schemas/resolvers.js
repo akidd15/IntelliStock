@@ -9,13 +9,28 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('categories');
     },
-    categories: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Category.find(params).sort({ createdAt: -1 });
-    },
+    categories: async (parent , { username }) => {
+      const params = username ? { categoryAuthor: username } : {};
+      return Category.find(params).sort({ createdAt: -1 }).populate('items');
+    },    
     category: async (parent, { categoryId }) => {
       return Category.findOne({ _id: categoryId });
     },
+    itemsByAuthor: async (parent, { categoryAuthor }) => {
+      const params = categoryAuthor ? { categoryAuthor } : {};
+      const categories = await Category.find(params);
+      const items = categories.flatMap(category => category.items);
+      return items;
+    },
+    item: async (parent, { itemId }) => {
+      return Category.findOne({
+        'items._id': itemId
+      }).then(category => {
+        // Find and return the item with the specified itemId
+        return category ? category.items.find(item => item._id.toString() === itemId) : null;
+      });
+    },
+    
   },
 
   Mutation: {
