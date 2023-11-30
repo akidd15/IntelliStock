@@ -6,12 +6,13 @@ const Header = () => {
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
+    window.location.replace('/')
   };
   return (
     <header className="">
       <div className="">
         <div>
-          <Link className="" to="/">
+          <Link className="" to="/home">
             <h1 className="">Intellistock</h1>
           </Link>
           <p className="">Keep track of your inventory</p>
