@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import { ADD_CATEGORY } from "../utils/mutations";
-import { QUERY_CATEGORIES } from "../utils/queries";
+import { QUERY_USER } from "../utils/queries";
+// this can be used to check status of logged in
 import Auth from '../utils/auth'
 
 const Home = () => {
@@ -16,9 +17,12 @@ const Home = () => {
     const [popUp, setPopUp] = useState(false);
     // added for database
     const [addCategory, { error }] = useMutation(ADD_CATEGORY);
-    const { loading, data } = useQuery(QUERY_CATEGORIES);
-    const categories = data?.categories || [];
-
+    const { loading, data } = useQuery(QUERY_USER, {
+        variables: { username: Auth.getProfile().data.username },
+    });
+    const user = data?.user || [];
+    console.log(user)
+    const categories = user.categories || [];
     // added async (event)
     const handleAddCategory = async (event) => {
         // added event.preventDefault()
@@ -37,14 +41,6 @@ const Home = () => {
         } catch (err) {
             console.error(err);
         }
-
-        // if (newCategory.trim() !== '') {
-        //     setCategory([ ...category, newCategory]);
-        //     setNewCategory('');
-        //     // open the pop up to notify the user "Category added successfully!"
-        //     setPopUp(true);
-
-        // }
     };
 
     const closePopUp = () => {
