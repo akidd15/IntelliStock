@@ -11,9 +11,9 @@ module.exports = {
       code: 'UNAUTHENTICATED',
     },
   }),
-  // function for our authenticated routes
+
   authMiddleware: function (req, res, next) {
-    // allows token to be sent via  req.query or headers
+    // allows token to be sent via req.query or headers
     let token = req.query.token || req.headers.authorization;
 
     // ["Bearer", "<tokenvalue>"]
@@ -29,17 +29,32 @@ module.exports = {
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
-    } catch {
+    } catch (err) {
       console.log('Invalid token');
-      return res.status(400).json({ message: 'invalid token!' });
+      return res.status(400).json({ message: 'Invalid token!' });
     }
 
     // send to next endpoint
     next();
   },
+
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  },
+
+  loggedIn: function (token) {
+    // If there is a token and it's not expired, return `true`
+    return token && !this.isTokenExpired(token) ? true : false;
+  },
+
+  isTokenExpired: function (token) {
+    try {
+      const decoded = jwt.verify(token, secret);
+      return decoded.exp < Date.now() / 1000;
+    } catch (err) {
+      return true;
+    }
   },
 };

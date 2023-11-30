@@ -8,7 +8,7 @@ Intellistock is a full-stack web application built with Vite and React, designed
 # Table of Contents
 
   - [Features](#features)
-  - [Technologies](#tech-stack)
+  - [Technologies](#techologies)
   - [Getting Started](#getting-started)
   - [License](#license)
   - [Contributors](#contributors)
@@ -45,10 +45,16 @@ This project is licensed under the MIT License
 
 ## Contributors
 
-[Allison Kidd](https://github.com/akidd15)
-[Alissa Patterson](https://github.com/Apatterson32)
-[Jacob Maughan](https://github.com/jacslimob)
-[Jacob Preciado](https://github.com/jmpre28)
+Allison Kidd - [Github](https://github.com/akidd15)
+
+
+Alissa Patterson - [Github](https://github.com/Apatterson32)
+
+
+Jacob Maughan - [Github](https://github.com/jacslimob)
+
+
+Jacob Preciado - [Github](https://github.com/jmpre28)
 
 
 
