@@ -64,12 +64,12 @@ const Header = () => {
           <h1 style={{ margin: 0 }}>Intellistock</h1>
         </Link>
       </div>
-      <div style={{ textAlign: 'center', flex: 1, paddingRight: '10px' }}>
+      <div style={{ textAlign: 'center', flex: 1, paddingLeft: '60px' }}>
         <p>Keep track of your inventory</p>
       </div>
       <div>
         {Auth.loggedIn() && (
-          <Link to="/" style={{ marginRight: '10px' }}>
+           <Link to="/" style={{ marginRight: '10px'}} >
             {Auth.getProfile().data.username}'s profile
           </Link>
         )}

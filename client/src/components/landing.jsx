@@ -3,7 +3,6 @@ import { Grid, Header } from 'semantic-ui-react';
 import { LoginForm } from './loginform'; 
 import { SignUpForm } from './signupform';
 
-
 export default function Landing() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -102,16 +101,15 @@ export default function Landing() {
     setPasswordMismatch(false);
   };
 
-  
-
   return (
+    
     <Grid
       textAlign="center"
-      style={{ height: '100vh', backgroundColor: '#2c3e50', color: 'white', margin: 0, padding: 0 }}
+      style={{ height: '100vh', backgroundColor: '#2c3e50', color: 'white', margin: 0, padding: '50px 0' }}
       verticalAlign="middle"
       stackable
     >
-      <Grid.Column style={{ maxWidth: '400px', minWidth: '300px', width: '70%', margin: 0 }}>
+      <Grid.Column style={{ maxWidth: '600px', minWidth: '400px', width: '70%', margin: 0 }}>
         <Header as="h1" textAlign="center" style={{ color: 'white' }}>
           IntelliStock
         </Header>
@@ -145,7 +143,7 @@ export default function Landing() {
           <p style={{ marginTop: '1em', color: 'white' }}>
             <span style={{ color: 'white' }}>Don't have an account? </span>
             <span onClick={handleSignUpClick} style={{ cursor: 'pointer', color: '#3498db' }}>
-                Sign up here
+              Sign up here
             </span>
           </p>
         )}
@@ -153,5 +151,4 @@ export default function Landing() {
     </Grid>
   );
 }
-
 
