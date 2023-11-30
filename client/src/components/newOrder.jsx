@@ -1,20 +1,22 @@
 import React from 'react';
 import { useState } from 'react';
 import { Modal, Button, Dropdown, Input } from 'semantic-ui-react';
-// import { useMutation } from "@apollo/client";
-// import { QUERY_USER } from "../utils/queries";
-// import { QUERY_ITEM } from '../utils/queries';
-// import { QUERY_CATEGORY } from '../utils/queries'
+import { useMutation } from "@apollo/client";
+import { QUERY_USER } from "../utils/queries";
+import { QUERY_ITEMS_BY_AUTHOR } from '../utils/queries';
+import { QUERY_CATEGORIES } from '../utils/queries'
 // import { LOGIN_USER } from '../utils/mutations';
-// import { ADD_ITEM, REMOVE_ITEM } from '../utils/mutations';
+ import { ADD_ITEM } from '../utils/mutations';
 // import { ADD_CATEGORY } from '../utils/mutations';
-export default function Receipt({ isOpen, onClose }) {
+export default function newOrder({ isOpen, onClose }) {
   const [quantity, setQuantity] = useState('');
   const [price, setPrice] = useState('');
   const [item, setItem] = useState('');
   const [newOrderItems, setnewOrderItems] = useState([]);
  const currentDate = new Date().toLocaleDateString();
-  const list = ['Item1','Item2','Item3'];
+ const addItem = useMutation(ADD_ITEM);
+
+  const list = [];
 
   function handleItem(e, { value }) {
     setItem(value);

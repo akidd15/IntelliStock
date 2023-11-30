@@ -1,0 +1,32 @@
+[
+    {
+        "itemName": "apple",
+        "quantity": 15,
+        "price": 2
+    },
+    {
+        "itemName": "oranges",
+        "quantity": 16,
+        "price": 3
+    },
+    {
+        "itemName": "biscuits",
+        "quantity": 10,
+        "price": 5
+    },
+    {
+        "itemName": "crackers",
+        "quantity": 3,
+        "price": 5
+    },
+    {
+        "itemName": "noodles",
+        "quantity": 30,
+        "price": 3
+    },
+    {
+        "itemName": "sauce",
+        "quantity": 2,
+        "price": 6
+    }
+]
