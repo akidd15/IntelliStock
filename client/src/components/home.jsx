@@ -11,21 +11,26 @@ import { QUERY_USER } from "../utils/queries";
 import Auth from '../utils/auth'
 
 const Home = () => {
-    // state to hold list item
-    // const [category, setCategory] = useState([]);
     const [newCategory, setNewCategory] = useState('');
     const [popUp, setPopUp] = useState(false);
     // added for database
-    const [addCategory, { error }] = useMutation(ADD_CATEGORY);
+    const [addCategory, { error }] = useMutation(
+        ADD_CATEGORY, {
+            // allows page to update immediately
+            refetchQueries: [
+                QUERY_USER,
+            ]
+        }
+        );
     const { loading, data } = useQuery(QUERY_USER, {
         variables: { username: Auth.getProfile().data.username },
     });
     const user = data?.user || [];
     console.log(user)
     const categories = user.categories || [];
-    // added async (event)
+    
     const handleAddCategory = async (event) => {
-        // added event.preventDefault()
+        
         event.preventDefault();
 
         try {
@@ -55,7 +60,7 @@ const Home = () => {
         <ul>
             {categories.map((category, index) => (
                 <li key={index}>
-                    <Link to={`/categories/${index}`}>{category.categoryName}</Link>
+                    <Link to={`/categories/${category._id}`}>{category.categoryName}</Link>
                 </li>
             ))}
         </ul>
