@@ -14,7 +14,8 @@ export default function newOrder({ isOpen, onClose }) {
   const [item, setItem] = useState('');
   const [newOrderItems, setnewOrderItems] = useState([]);
  const currentDate = new Date().toLocaleDateString();
- const addItem = useMutation(ADD_ITEM);
+
+ const [addItem] = useMutation(ADD_ITEM);
 
   const list = [];
 
@@ -27,29 +28,32 @@ export default function newOrder({ isOpen, onClose }) {
   function handlePrice(e, { value }) {
     setPrice(value);
   }
-  // function handleAddItem() {
-  //   const newItem = {
-  //     itemName: '',
-  //     price: '',
-  //     quantity: '',
-  //   };
-  //   setnewOrderItems([...newOrderItems, newItem]);
-  // }
+  
   function resetForm() {
     setQuantity('');
     setPrice('');
     setItem('');
     setnewOrderItems([]);
   }
-  function handleSubmit() {
-    console.log('Receipt successfully created:', {
-      date: currentDate,
-      item: item,
-      quantity: quantity,
-      price: price
-    })
-    resetForm();
-    onClose();
+  async function handleSubmit() {
+    try {
+      // Use the addItem mutation to add the item to your database
+      await addItem({
+        variables: {
+          items: {
+            name: item,
+            quantity: parseInt(quantity), // Convert quantity to integer
+            price: parseFloat(price),    // Convert price to float
+          }
+        }
+      });
+  
+      console.log('Item added successfully to the database');
+      resetForm();
+      onClose();
+    } catch (error) {
+      console.error('Error adding item to the database', error);
+    }
   }
   return (
     <Modal open={isOpen} onClose={onClose}>
