@@ -11,10 +11,10 @@ const Header = () => {
   };
 
   return (
-    <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1em' }}>
+    <header style={{ backgroundColor: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1em' }}>
       <div>
         <Link to="/home">
-          <h1 style={{ margin: 0, paddingRight: '10px' }}>Intellistock</h1>
+          <h1 style={{ margin: 0, paddingRight: '10px', paddingTop: '5px' }}>Intellistock</h1>
         </Link>
         <p style={{ margin: 0 }}>Keep track of your inventory</p>
       </div>
