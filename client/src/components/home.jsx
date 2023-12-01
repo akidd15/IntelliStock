@@ -75,9 +75,9 @@ const Home = () => {
             <button onClick={handleAddCategory}>Add Category</button>
         </div>
         </div>
-        <div className="low-items">
+        {/* <div className="low-items"> Future development feature.
             <h3> Low Items </h3>
-        </div>
+        </div> */}
         
         {popUp && (
             <div className="pop-up-container">
