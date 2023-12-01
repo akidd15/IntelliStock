@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Form, Segment, Button } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
@@ -11,7 +10,6 @@ export const SignUpForm = ({
   emailError,
   passwordError,
   handleCancelSignUp,
-  handleSignUpSubmit,
 }) => {
   const [formState, setFormState] = useState({
     username: '',
@@ -33,11 +31,12 @@ export const SignUpForm = ({
     event.preventDefault();
 
     try {
-      await addUser({
+      const { data } = await addUser({
         variables: { ...formState },
       });
 
       Auth.login(data.addUser.token);
+
       window.location.replace('/home');
     } catch (e) {
       console.error(e);
@@ -46,12 +45,7 @@ export const SignUpForm = ({
 
   return (
     <div>
-      {data ? (
-        <p>
-          Success! You may now head{' '}
-          <Link to="/home">back to the homepage.</Link>
-        </p>
-      ) : (
+      
         <Form size="large" onSubmit={handleSubmit}>
           <Segment stacked>
             <Form.Input
@@ -115,10 +109,12 @@ export const SignUpForm = ({
             </Button>
           </Segment>
         </Form>
+        {error && (
+        <div className="my-3 p-3 bg-danger text-white">
+          {error.message}
+        </div>
       )}
-      {error && (
-        <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
-      )}
+      
     </div>
-  );
+  )
 };
