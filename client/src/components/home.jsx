@@ -60,7 +60,7 @@ const Home = () => {
         <ul>
             {categories.map((category) => (
                 <li key={category._id}>
-                    <Link to={`/categories/${category.categoryName}`}>{category.categoryName}</Link>
+                    <Link to={`/categories/${category._id}`}>{category.categoryName}</Link>
                 </li>
             ))}
         </ul>

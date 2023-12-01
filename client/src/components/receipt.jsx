@@ -1,25 +1,28 @@
-import React from 'react';
 import { useState } from 'react';
 import { Modal, Button, Dropdown, Input } from 'semantic-ui-react';
-// import { useMutation } from "@apollo/client";
-// import { QUERY_USER } from "../utils/queries";
-// import { QUERY_ITEM } from '../utils/queries';
-// import { QUERY_CATEGORY } from '../utils/queries'
-// import { LOGIN_USER } from '../utils/mutations';
-// import { ADD_ITEM, REMOVE_ITEM } from '../utils/mutations';
-// import { ADD_CATEGORY } from '../utils/mutations';
+import { useMutation } from "@apollo/client";
+import { UPDATE_ITEM } from '../utils/mutations';
 
-export default function Receipt({ isOpen, onClose }) {
+
+export default function Receipt({ isOpen, onClose, items }) {
   const [quantity, setQuantity] = useState('');
   const [price, setPrice] = useState('');
-  const [item, setItem] = useState('');
+  const [names, setNames] = useState('');
   const [receiptItems, setReceiptItems] = useState([]);
-  const currentDate = new Date().toLocaleDateString();
+  const [itemId, setItemId] = useState();
+  const [updateItem, {error, data}] = useMutation(UPDATE_ITEM);
+  // const currentDate = new Date().toLocaleDateString();
 
-  const list = ['Item1','Item2','Item3'];
-
+  const list = [
+    'Item1',
+    'Item2',
+    'Item3'
+  ];
   function handleItem(e, { value }) {
-    setItem(value);
+    
+    setNames(value[1]);
+    setItemId(value[0]);
+
   }
 
   function handleQuantity(e, { value }) {
@@ -44,16 +47,27 @@ export default function Receipt({ isOpen, onClose }) {
   function resetForm() {
     setQuantity('');
     setPrice('');
-    setItem('');
+    setNames('');
     setReceiptItems([]);
   }
 
-  function handleSubmit() {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     console.log('Receipt successfully created:', {
-      date: currentDate,
-      item: item,
+      // date: currentDate,
+      id: itemId,
+      item: names,
       quantity: quantity,
       price: price
+    });
+    
+    await updateItem({
+      variables: {
+        itemId: itemId,
+        itemName: names,
+        quantity: Number(quantity),
+        price: Number(price)
+      }
     })
 
     resetForm();
@@ -69,7 +83,7 @@ export default function Receipt({ isOpen, onClose }) {
           placeholder='Select Item'
           fluid
           selection
-          options={list.map(item => ({ text: item, value: item }))}
+          options= {items.map(item => ({ value: [item._id, item.itemName], text: item.itemName }))}
           onChange={handleItem}
         />
         <Input

@@ -26,6 +26,7 @@ export default function Categories() {
     });
     const category = data?.category || [];
     const items = category.items || [];
+    console.log(items);
 
     const [modalOpenReceipt, setModalOpenReceipt] = useState(false);
     const [modalOpenNewOrder, setModalOpenNewOrder] = useState(false);
@@ -121,11 +122,19 @@ export default function Categories() {
 
             <button onClick={openModalNewOrder}>New Order</button>
 
-            <NewOrder isOpen={modalOpenNewOrder} onClose={closeModalNewOrder} />
+            <NewOrder
+                isOpen={modalOpenNewOrder}
+                onClose={closeModalNewOrder}
+                items={items}
+            />
 
             <button onClick={openModalReceipt}>Receipt</button>
 
-            <Receipt isOpen={modalOpenReceipt} onClose={closeModalReceipt} />
+            <Receipt
+                isOpen={modalOpenReceipt}
+                onClose={closeModalReceipt}
+                items={items}
+            />
         </>
     )
 };

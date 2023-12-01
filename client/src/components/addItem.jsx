@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import Receipt from './receipt';
-import NewOrder from './newOrder';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_SINGLE_CATEGORY } from '../utils/queries';
 import { ADD_ITEM } from '../utils/mutations';
-import { Modal, Button, Dropdown, Input } from 'semantic-ui-react';
+import { Modal, Button, Input } from 'semantic-ui-react';
 
 // pass arrays to function from DB
 export default function AddItem({ isOpen, onClose }) {
@@ -45,20 +43,21 @@ export default function AddItem({ isOpen, onClose }) {
 
         event.preventDefault();
 
+        console.log('categoryId:', categoryId);
+
         try {
             const { data } = await addItem({
                 variables: {
                     categoryId: categoryId,
                     itemName: newItem,
-                    // need to set up a form
-                    quantity: 10,
-                    // these are hard coded
-                    price: 4
+                    quantity: parseInt(quantity),
+                    price: parseFloat(price)
                 },
             });
 
             setNewItem('');
             resetForm();
+            onClose();
         } catch (err) {
             console.error(err);
         }
