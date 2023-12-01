@@ -39,53 +39,57 @@ export const LoginForm = () => {
   };
 
   return (
-    <div>
-      {data ? (<p>
-        Success! You may now head{'/home'}
-        <Link to="/home">back to the homepage.</Link>
-      </p>): (
-    <Form size="large" onSubmit={handleLoginSubmit}>
-      <Segment stacked>
-        <Form.Input
-          fluid
-          icon={null}
-          placeholder="Email"
-          name="email"
-          type="email"
-          value={formState.email}
-          onChange={handleChange}
-          required
-          style={{ fontSize: '1.2em', marginBottom: '1em' }}
-        />
+    <Segment inverted style={{ backgroundColor: 'white', width: '100%' }}>
+      {data ? (
+        <p>
+          Success! You may now head{' '}
+          <Link to="/home">back to the homepage.</Link>
+        </p>
+      ) : (
+        <Form size="large" onSubmit={handleLoginSubmit}>
+          <Segment stacked>
+            <Form.Input
+              fluid
+              icon={null}
+              placeholder="Email"
+              name="email"
+              type="email"
+              value={formState.email}
+              onChange={handleChange}
+              required
+              style={{ fontSize: '1.2em', marginBottom: '1em' }}
+            />
 
-        <Form.Input
-          fluid
-          icon={null}
-          placeholder="Password"
-          name="password"
-          type="password"
-          value={formState.password}
-          onChange={handleChange}
-          required
-          style={{ fontSize: '1.2em', marginBottom: '1em' }}
-        />
+            <Form.Input
+              fluid
+              icon={null}
+              placeholder="Password"
+              name="password"
+              type="password"
+              value={formState.password}
+              onChange={handleChange}
+              required
+              style={{ fontSize: '1.2em', marginBottom: '1em' }}
+            />
 
-        <Button
-          color="green"
-          fluid
-          size="large"
-          type="submit"
-          style={{ fontSize: '1.2em', marginBottom: '1em' }}
-        >
-          Login
-        </Button>
-      </Segment>
-    </Form>)}
-    {error && (
-    <div className="my-3 p-3 bg-danger text-white">
-      {error.message}
-    </div>
-  )}
-    </div>
+            <Button
+              color="green"
+              fluid
+              size="large"
+              type="submit"
+              style={{ fontSize: '1.2em', marginBottom: '1em' }}
+            >
+              Login
+            </Button>
+          </Segment>
+        </Form>
+      )}
+      {error && (
+        <div className="my-3 p-3 bg-danger text-white">
+          {error.message}
+        </div>
+      )}
+    </Segment>
   );
 };
+
