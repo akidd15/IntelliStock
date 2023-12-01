@@ -13,7 +13,7 @@ export default function Categories() {
 
     const { categoryId } = useParams();
 
-    const { loading, data } = useQuery(QUERY_SINGLE_CATEGORY, {
+    const { data } = useQuery(QUERY_SINGLE_CATEGORY, {
         variables: { categoryId: categoryId },
     });
     const category = data?.category || [];
@@ -44,31 +44,59 @@ export default function Categories() {
     }
 
     return (
-        <>
-            <h2>{category.categoryName}</h2>
+        <div className='ui container' style={{ marginTop: '75px',
+        textAlign: 'center',
+        height: '75%'
+        }}>
             
-            <Link to="/home">
-                <button>Back to Home</button>
-            </Link>
+            <div style={{ display:'flex' }}>
+                <Link to="/home" className=''>
+                    -- Back
+                </Link>
+            </div>
 
-            <button onClick={openModalAddItem}>Add Item</button>
+            <h4 style={{margin:'1px'}}>Category Name:</h4>
+            
+            <h2 style={{ fontSize: '50px', marginTop:'1px' }}>{category.categoryName}</h2>
+
+            
 
             <AddItem isOpen={modalOpenAddItem} onClose={closeModalAddItem} />
 
-            <div className="container">
-                <h3>Items</h3>
-                <ul>
-                    {items.map((item, index) => (
-                        <li key={index}>
-                            name: {item.itemName} quantity: {item.quantity} price: {item.price}
-                        </li>
-                    ))}
-                </ul>
+            <div className="ui container">
+                <div style={{}}>
+                    
+                    <button style={{ marginTop: '10px', marginBottom:'20px' }} onClick={openModalAddItem}>Add Item</button>
+                </div>
+                <table className="ui celled table">
+                    <thead>
+                        <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items.map((item, index) => (
+                        <tr key={index}>
+                            <td>{item.itemName}</td>
+                            <td className="right aligned">{item.quantity}</td>
+                            <td className="right aligned">{item.price}</td>
+                            <td className="center aligned">
+        <button className="ui red button" onClick={() => handleDelete(item)}>
+          Delete
+        </button>
+      </td>
+                        </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
 
             
-
-            <button onClick={openModalNewOrder}>New Order</button>
+            <div style={{ marginTop: '40px' }}>
+            <button className='ui green button' onClick={openModalNewOrder}>New Order</button>
+            </div>
 
             <NewOrder
                 isOpen={modalOpenNewOrder}
@@ -76,13 +104,16 @@ export default function Categories() {
                 items={items}
             />
 
-            <button onClick={openModalReceipt}>Receipt</button>
+            <div style={{ marginTop: '20px' }}>
+            <button className='ui red button' onClick={openModalReceipt}>Receipt</button>
+            </div>
 
             <Receipt
                 isOpen={modalOpenReceipt}
                 onClose={closeModalReceipt}
                 items={items}
             />
-        </>
+            
+        </div>
     );
 }
