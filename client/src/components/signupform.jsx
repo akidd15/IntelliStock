@@ -1,29 +1,70 @@
-import React from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Segment, Button } from 'semantic-ui-react';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
+
+import Auth from '../utils/auth';
 
 export const SignUpForm = ({
-  username,
-  email,
-  password,
   confirmPassword,
   passwordMismatch,
   emailError,
   passwordError,
-  handleUsername,
-  handleEmail,
-  handlePassword,
   handleConfirmPassword,
-  handleSignUpSubmit,
   handleCancelSignUp,
-}) => (
-  <Form size="large" onSubmit={handleSignUpSubmit}>
+}) => {
+  const [formState, setFormState] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+  const [addUser, { error, data }] = useMutation(ADD_USER);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+
+    try {
+      const { data } = await addUser({
+        variables: { ...formState },
+      });
+
+      Auth.login(data.addUser.token);
+      window.location.replace('/home')
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  
+  
+  
+  return (
+    <div>
+    {
+      data ? (<p>
+        Success! You may now head{' '}
+        <Link to="/home">back to the homepage.</Link>
+      </p>): (
+
+  <Form size="large" onSubmit={handleFormSubmit}>
     <Segment stacked>
       <Form.Input
         fluid
         icon={null}
         placeholder="Username"
-        value={username}
-        onChange={handleUsername}
+        name="username"
+        value={formState.username}
+        onChange={handleChange}
         required
         style={{ fontSize: '1.2em', marginBottom: '1em' }}
       />
@@ -32,8 +73,9 @@ export const SignUpForm = ({
         fluid
         icon={null}
         placeholder="Email"
-        value={email}
-        onChange={handleEmail}
+        name="email"
+        value={formState.email}
+        onChange={handleChange}
         error={emailError !== ''}
         required
         style={{ fontSize: '1.2em', marginBottom: '1em' }}
@@ -44,9 +86,10 @@ export const SignUpForm = ({
         fluid
         icon={null}
         placeholder="Password"
+        name="password"
         type="password"
-        value={password}
-        onChange={handlePassword}
+        value={formState.password}
+        onChange={handleChange}
         error={passwordError !== ''}
         required
         style={{ fontSize: '1.2em', marginBottom: '1em' }}
@@ -77,5 +120,12 @@ export const SignUpForm = ({
         Cancel
       </Button>
     </Segment>
-  </Form>
+  </Form>)}
+  {error && (
+    <div className="my-3 p-3 bg-danger text-white">
+      {error.message}
+    </div>
+  )}
+  </div>
 );
+      }
