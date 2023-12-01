@@ -69,7 +69,7 @@ const Header = () => {
       </div>
       <div>
         {Auth.loggedIn() && (
-           <Link to="/" style={{ marginRight: '10px'}} >
+          <Link to="/home" style={{ marginRight: '10px' }}>
             {Auth.getProfile().data.username}'s profile
           </Link>
         )}

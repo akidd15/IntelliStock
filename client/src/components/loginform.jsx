@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Segment, Button } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
@@ -38,6 +39,11 @@ export const LoginForm = () => {
   };
 
   return (
+    <div>
+      {data ? (<p>
+        Success! You may now head{'/home'}
+        <Link to="/home">back to the homepage.</Link>
+      </p>): (
     <Form size="large" onSubmit={handleLoginSubmit}>
       <Segment stacked>
         <Form.Input
@@ -74,6 +80,12 @@ export const LoginForm = () => {
           Login
         </Button>
       </Segment>
-    </Form>
+    </Form>)}
+    {error && (
+    <div className="my-3 p-3 bg-danger text-white">
+      {error.message}
+    </div>
+  )}
+    </div>
   );
 };
