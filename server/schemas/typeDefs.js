@@ -19,7 +19,7 @@ const typeDefs = `
         _id: ID
         itemName: String
         quantity: Int
-        price: Int
+        price: Float
     }
 
     type Auth {
@@ -40,8 +40,12 @@ const typeDefs = `
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
         addCategory(categoryName: String!, categoryAuthor: String!): Category
-        addItem(categoryId: ID!, itemName: String!, quantity: Int!, price: Int!): Category
+        addItem(categoryId: ID!, itemName: String, quantity: Int, price: Float): Category
+        updateItem(itemId: ID!, itemName: String, quantity: Int, price: Float): Item
+        removeCategory(categoryId: ID!, userId: ID!): Category
+        removeItem(categoryId: ID!, itemId: ID!): Category
     }
 `
+// removeCategory wont need userId once context is enabled in resolvers
 
 module.exports = typeDefs;
