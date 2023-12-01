@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Grid, Header } from 'semantic-ui-react';
-import { LoginForm } from './loginform'; 
+import { Grid, Header, Segment } from 'semantic-ui-react';
+import { LoginForm } from './loginform';
 import { SignUpForm } from './signupform';
-
 
 export default function Landing() {
   const [username, setUsername] = useState('');
@@ -74,7 +73,6 @@ export default function Landing() {
     if (isLoginFormValid()) {
       console.log('Username: ' + username);
       console.log('Password: ' + password);
-      
     } else {
       console.log('Login form is not valid. Please check the fields.');
     }
@@ -102,56 +100,88 @@ export default function Landing() {
     setPasswordMismatch(false);
   };
 
-  
-
   return (
     <Grid
       textAlign="center"
-      style={{ height: '100vh', backgroundColor: '#2c3e50', color: 'white', margin: 0, padding: 0 }}
+      style={{ height: '100vh',
+      backgroundColor: 'white', 
+      color: 'white',
+      margin: 0, 
+      padding: 0, 
+      overflow: 'hidden',
+      marginBottom: '-4px' }}
       verticalAlign="middle"
       stackable
     >
-      <Grid.Column style={{ maxWidth: '400px', minWidth: '300px', width: '70%', margin: 0 }}>
-        <Header as="h1" textAlign="center" style={{ color: 'white' }}>
-          IntelliStock
-        </Header>
-        {!showSignUpForm ? (
-          <LoginForm
-            username={username}
-            password={password}
-            handleUsername={handleUsername}
-            handlePassword={handlePassword}
-            handleLoginSubmit={handleLoginSubmit}
-          />
-        ) : (
-          <SignUpForm
-            username={username}
-            email={email}
-            password={password}
-            confirmPassword={confirmPassword}
-            passwordMismatch={passwordMismatch}
-            emailError={emailError}
-            passwordError={passwordError}
-            handleUsername={handleUsername}
-            handleEmail={handleEmail}
-            handlePassword={handlePassword}
-            handleConfirmPassword={handleConfirmPassword}
-            handleSignUpSubmit={handleSignUpSubmit}
-            handleCancelSignUp={handleCancelSignUp}
-            passwordFinished={passwordFinished}
-          />
-        )}
-        {!showSignUpForm && (
-          <p style={{ marginTop: '1em', color: 'white' }}>
-            <span style={{ color: 'white' }}>Don't have an account? </span>
-            <span onClick={handleSignUpClick} style={{ cursor: 'pointer', color: '#3498db' }}>
-                Sign up here
-            </span>
+      <Grid.Row style={{ height: '100%' }}>
+        {/* Left half */}
+        <Grid.Column width={8} style={{
+          height: '100%',
+          display: 'flex',
+          paddingLeft: '25px',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          background: 'linear-gradient(to bottom, #1d2b38, #2c3e50)', // Adjust the color values
+        }}>
+          <p textAlign="center" style={{ color: 'white', fontSize: '15px', lineHeight: '2.15' }}>
+            Welcome to IntelliStock – Your Intelligent Inventory Management Solution. Streamline your inventory tracking effortlessly, ensuring precision and control over your stock. Gain insights, make informed decisions, and elevate your inventory management experience with IntelliStock. Sign up now and embrace a smarter way to manage your stock!
           </p>
-        )}
-      </Grid.Column>
+        </Grid.Column>
+
+
+        {/* Right half */}
+        <Grid.Column
+          width={8}
+          style={{
+            backgroundColor: '#2c3e50', // Background color
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            background: 'linear-gradient(to bottom, #1d2b38, #2c3e50)', // Adjust the color values
+          }}
+        >
+          <Segment inverted style={{ width: '70%', padding: '20px', borderRadius: '5px' }}>
+            {!showSignUpForm ? (
+              <LoginForm
+                username={username}
+                password={password}
+                handleUsername={handleUsername}
+                handlePassword={handlePassword}
+                handleLoginSubmit={handleLoginSubmit}
+              />
+            ) : (
+              <SignUpForm
+                username={username}
+                email={email}
+                password={password}
+                confirmPassword={confirmPassword}
+                passwordMismatch={passwordMismatch}
+                emailError={emailError}
+                passwordError={passwordError}
+                handleUsername={handleUsername}
+                handleEmail={handleEmail}
+                handlePassword={handlePassword}
+                handleConfirmPassword={handleConfirmPassword}
+                handleSignUpSubmit={handleSignUpSubmit}
+                handleCancelSignUp={handleCancelSignUp}
+                passwordFinished={passwordFinished}
+              />
+            )}
+            {!showSignUpForm && (
+              <p style={{ marginTop: '1em', color: 'white' }}>
+                <span style={{ color: 'white' }}>Don't have an account? </span>
+                <span onClick={handleSignUpClick} style={{ cursor: 'pointer', color: '#3498db' }}>
+                  Sign up here
+                </span>
+              </p>
+            )}
+          </Segment>
+        </Grid.Column>
+      </Grid.Row>
     </Grid>
   );
 }
-
 
