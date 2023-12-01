@@ -1,11 +1,21 @@
 import { useState } from 'react';
-import React from 'react';
 import Receipt from './receipt';
 import NewOrder from './newOrder';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { QUERY_SINGLE_CATEGORY } from '../utils/queries';
 
 // pass arrays to function from DB
 export default function Categories() {
+    // grabs categoryId from route :categoryId
+    const { categoryId } = useParams();
+
+    const { loading, data } = useQuery(QUERY_SINGLE_CATEGORY, {
+        variables: { categoryId: categoryId },
+    });
+    const category = data?.category || [];
+    const items = category.items || [];
+
     const [modalOpenReceipt, setModalOpenReceipt] = useState(false);
     const [modalOpenNewOrder, setModalOpenNewOrder] = useState(false);
 
@@ -25,20 +35,22 @@ export default function Categories() {
         setModalOpenNewOrder(false);
     }
 
-    const list = [];
+    // const list = [];
     const lowInventory = [];
 
     return (
         <>
-          <h2>(list name)</h2>
+          <h2>{category.categoryName}</h2>
           <Link to="/home">
             <button>Back to Home</button>
         </Link>
           <div className="container">
             <h3>Items</h3>
             <ul>
-                {list.map((item, index) => (
-                    <li key={index}>{item}</li>
+                {items.map((item, index) => (
+                    <li key={index}>
+                        name: {item.itemName} quantity: {item.quantity} price {item.price}
+                    </li>
                 ))}
             </ul>
           </div>

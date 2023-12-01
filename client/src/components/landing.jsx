@@ -3,6 +3,7 @@ import { Grid, Header } from 'semantic-ui-react';
 import { LoginForm } from './loginform'; 
 import { SignUpForm } from './signupform';
 
+
 export default function Landing() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -73,7 +74,7 @@ export default function Landing() {
     if (isLoginFormValid()) {
       console.log('Username: ' + username);
       console.log('Password: ' + password);
-      // Add login logic here
+      
     } else {
       console.log('Login form is not valid. Please check the fields.');
     }
@@ -86,7 +87,7 @@ export default function Landing() {
       console.log('Username: ' + username);
       console.log('Email: ' + email);
       console.log('Password: ' + password);
-      // Add sign-up logic here
+      // Add sign up logic
     } else {
       console.log('Sign-up form is not valid. Please check the fields.');
     }
@@ -100,6 +101,8 @@ export default function Landing() {
     setShowSignUpForm(false);
     setPasswordMismatch(false);
   };
+
+  
 
   return (
     <Grid
@@ -150,3 +153,5 @@ export default function Landing() {
     </Grid>
   );
 }
+
+
