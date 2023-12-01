@@ -58,8 +58,8 @@ const Home = () => {
             <h1>Welcome!</h1>
             <h3>My Categories</h3>
         <ul>
-            {categories.map((category, index) => (
-                <li key={index}>
+            {categories.map((category) => (
+                <li key={category._id}>
                     <Link to={`/categories/${category._id}`}>{category.categoryName}</Link>
                 </li>
             ))}
@@ -75,9 +75,9 @@ const Home = () => {
             <button onClick={handleAddCategory}>Add Category</button>
         </div>
         </div>
-        <div className="low-items">
+        {/* <div className="low-items"> Future development feature.
             <h3> Low Items </h3>
-        </div>
+        </div> */}
         
         {popUp && (
             <div className="pop-up-container">
