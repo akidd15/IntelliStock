@@ -7,8 +7,6 @@ export default function Landing() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordFinished, setPasswordFinished] = useState(false);
   const [passwordMismatch, setPasswordMismatch] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -29,24 +27,15 @@ export default function Landing() {
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
-    setPasswordFinished(true);
 
     // Password matching validation
     const enteredPassword = e.target.value;
-    setPasswordMismatch(confirmPassword !== '' && password !== enteredPassword);
+    setPasswordMismatch(password !== enteredPassword);
     setPasswordError(
       enteredPassword.length >= 8
         ? ''
         : 'Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, and one special character.'
     );
-  };
-
-  const handleConfirmPassword = (e) => {
-    setConfirmPassword(e.target.value);
-
-    // Password matching validation
-    const enteredPassword = e.target.value;
-    setPasswordMismatch(password !== enteredPassword);
   };
 
   const isLoginFormValid = () => {
@@ -62,8 +51,7 @@ export default function Landing() {
       !passwordMismatch &&
       username !== '' &&
       email !== '' &&
-      password !== '' &&
-      confirmPassword !== ''
+      password !== ''
     );
   };
 
@@ -86,7 +74,7 @@ export default function Landing() {
       console.log('Username: ' + username);
       console.log('Email: ' + email);
       console.log('Password: ' + password);
-      // Add sign up logic
+      // Add sign-up logic
     } else {
       console.log('Sign-up form is not valid. Please check the fields.');
     }
@@ -102,7 +90,6 @@ export default function Landing() {
   };
 
   return (
-    
     <Grid
       textAlign="center"
       style={{ height: '100vh', backgroundColor: '#2c3e50', color: 'white', margin: 0, padding: '50px 0' }}
@@ -126,17 +113,14 @@ export default function Landing() {
             username={username}
             email={email}
             password={password}
-            confirmPassword={confirmPassword}
             passwordMismatch={passwordMismatch}
             emailError={emailError}
             passwordError={passwordError}
             handleUsername={handleUsername}
             handleEmail={handleEmail}
             handlePassword={handlePassword}
-            handleConfirmPassword={handleConfirmPassword}
             handleSignUpSubmit={handleSignUpSubmit}
             handleCancelSignUp={handleCancelSignUp}
-            passwordFinished={passwordFinished}
           />
         )}
         {!showSignUpForm && (
@@ -151,4 +135,5 @@ export default function Landing() {
     </Grid>
   );
 }
+
 
