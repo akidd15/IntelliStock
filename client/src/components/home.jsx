@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // added for database adding and query
-import { useQuery } from "@apollo/client";
-import { useMutation } from "@apollo/client";
+// import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CATEGORY } from "../utils/mutations";
 import { QUERY_USER } from "../utils/queries";
 // this can be used to check status of logged in

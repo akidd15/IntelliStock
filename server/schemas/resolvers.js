@@ -23,9 +23,11 @@ const resolvers = {
       return items;
     },
     item: async (parent, { itemId }) => {
-      return Category.findOne({
-        'items._id': itemId
-      }).then(category => {
+      return Category.findOne(
+        { 'items._id': itemId }
+      )
+      .then(
+        category => {
         // Find and return the item with the specified itemId
         return category ? category.items.find(item => item._id.toString() === itemId) : null;
       });
@@ -81,7 +83,80 @@ const resolvers = {
         }
       );
     },
-    
+
+    updateItem: async (parent, { itemId, itemName, quantity, price }) => {
+      try {
+        const updateFields = {};
+
+        // Check if each field is provided before adding it to the updateFields object
+        if (itemName !== undefined) updateFields['items.$.itemName'] = itemName;
+        if (quantity !== undefined) updateFields['items.$.quantity'] = quantity;
+        if (price !== undefined) updateFields['items.$.price'] = price;
+
+        // Use findOneAndUpdate to find and update the specific item
+        await Category.findOneAndUpdate(
+          { 'items._id': itemId },
+          { $set: updateFields },
+          { 
+            new: true,
+          }
+        );
+
+        const updatedCategory = await Category.findOne({ 'items._id': itemId }).then(
+          category => {
+          // Find and return the item with the specified itemId
+          return category ? category.items.find(item => item._id.toString() === itemId) : null;
+        });;
+
+        if (!updatedCategory) {
+          throw new Error('Item not found in category');
+        }
+
+        return updatedCategory;
+      } catch (error) {
+        throw new Error(`Error updating item: ${error.message}`);
+      }
+    },
+    // needs to use context for verification
+    removeCategory: async(
+      parent, 
+      { categoryId, userId }, 
+      // context
+      ) => {
+      // if (context.user) {
+        const category = await Category.findOneAndDelete({
+          _id: categoryId,
+          // categoryAuthor: context.user.username,
+        });
+
+        await User.findOneAndUpdate(
+          { 
+            _id: 
+            // context.user._id
+            userId 
+          },
+          { $pull: { categories: category._id }}
+        );
+
+        return category;
+      },
+      // throw AuthenticationError;},
+
+    removeItem: async (parent, { categoryId, itemId }) => {
+      return Category.findOneAndUpdate(
+        { _id: categoryId },
+        {
+          pull: {
+            items: {
+              _id: itemId,
+            },
+          },
+        },
+        {
+          new: true
+        }
+      )
+    }
   },
 };
 
