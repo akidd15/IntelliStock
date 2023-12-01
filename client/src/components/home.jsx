@@ -57,9 +57,9 @@ const Home = () => {
             <h1>Welcome!</h1>
             <h3>My Categories</h3>
         <ul>
-            {categories.map((category, index) => (
-                <li key={index}>
-                    <Link to={`/categories/${index}`}>{category.categoryName}</Link>
+            {categories.map((category) => (
+                <li key={category._id}>
+                    <Link to={`/categories/${category.categoryName}`}>{category.categoryName}</Link>
                 </li>
             ))}
         </ul>
