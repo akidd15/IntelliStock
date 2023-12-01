@@ -2,11 +2,21 @@ import { useState } from 'react';
 import Receipt from './receipt';
 import NewOrder from './newOrder';
 import { Link, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_SINGLE_CATEGORY } from '../utils/queries';
+import { ADD_ITEM } from '../utils/mutations';
 
 // pass arrays to function from DB
 export default function Categories() {
+    const [newItem, setNewItem] = useState('');
+    const [addItem, { error }] = useMutation(
+        ADD_ITEM, {
+            // allows page to update immediately
+            refetchQueries: [
+                QUERY_SINGLE_CATEGORY,
+            ]
+        }
+        );
     // grabs categoryId from route :categoryId
     const { categoryId } = useParams();
 
@@ -35,7 +45,30 @@ export default function Categories() {
         setModalOpenNewOrder(false);
     }
 
-    // const list = [];
+    const handleAddItem = async (event) => {
+        
+        event.preventDefault();
+
+        try {
+            const { data } = await addItem({
+                variables: {
+                    categoryId: categoryId,
+                    itemName: newItem,
+                    // need to set up a form
+                    quantity: 10,
+                    // these are hard coded
+                    price: 4
+                },
+            });
+
+            setNewItem('');
+            
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    
     const lowInventory = [];
 
     return (
@@ -49,12 +82,21 @@ export default function Categories() {
             <ul>
                 {items.map((item, index) => (
                     <li key={index}>
-                        name: {item.itemName} quantity: {item.quantity} price {item.price}
+                        name: {item.itemName} quantity: {item.quantity} price: {item.price}
                     </li>
                 ))}
             </ul>
           </div>
           <div className="container">
+          <div>
+            <input
+            type="text"
+            value={newItem}
+            onChange={(e) => setNewItem(e.target.value)}
+            placeholder="Enter a new item name"
+            />
+            <button onClick={handleAddItem}>Add Item</button>
+        </div>
             <h3>Low Inventory</h3>
             <ul>
                 {lowInventory.map((item, index) => (
