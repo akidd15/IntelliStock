@@ -46,9 +46,15 @@ export default function Categories() {
     return (
         <>
             <h2>{category.categoryName}</h2>
+            
             <Link to="/home">
                 <button>Back to Home</button>
             </Link>
+
+            <button onClick={openModalAddItem}>Add Item</button>
+
+            <AddItem isOpen={modalOpenAddItem} onClose={closeModalAddItem} />
+
             <div className="container">
                 <h3>Items</h3>
                 <ul>
@@ -60,9 +66,7 @@ export default function Categories() {
                 </ul>
             </div>
 
-            <button onClick={openModalAddItem}>Add Item</button>
-
-            <AddItem isOpen={modalOpenAddItem} onClose={closeModalAddItem} />
+            
 
             <button onClick={openModalNewOrder}>New Order</button>
 
