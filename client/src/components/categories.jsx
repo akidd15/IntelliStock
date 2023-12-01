@@ -5,18 +5,19 @@ import { Link, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_SINGLE_CATEGORY } from '../utils/queries';
 import { ADD_ITEM } from '../utils/mutations';
+import AddItem from './addItem';
 
 // pass arrays to function from DB
 export default function Categories() {
     const [newItem, setNewItem] = useState('');
     const [addItem, { error }] = useMutation(
         ADD_ITEM, {
-            // allows page to update immediately
-            refetchQueries: [
-                QUERY_SINGLE_CATEGORY,
-            ]
-        }
-        );
+        // allows page to update immediately
+        refetchQueries: [
+            QUERY_SINGLE_CATEGORY,
+        ]
+    }
+    );
     // grabs categoryId from route :categoryId
     const { categoryId } = useParams();
 
@@ -28,11 +29,20 @@ export default function Categories() {
 
     const [modalOpenReceipt, setModalOpenReceipt] = useState(false);
     const [modalOpenNewOrder, setModalOpenNewOrder] = useState(false);
+    const [modalOpenAddItem, setModalOpenAddItem] = useState(false);
+
+    function openModalAddItem() {
+        setModalOpenAddItem(true);
+    }
+
+    function closeModalAddItem() {
+        setModalOpenAddItem(false);
+    }
 
     function openModalReceipt() {
         setModalOpenReceipt(true);
     }
-    
+
     function closeModalReceipt() {
         setModalOpenReceipt(false);
     }
@@ -46,7 +56,7 @@ export default function Categories() {
     }
 
     const handleAddItem = async (event) => {
-        
+
         event.preventDefault();
 
         try {
@@ -62,56 +72,60 @@ export default function Categories() {
             });
 
             setNewItem('');
-            
+
         } catch (err) {
             console.error(err);
         }
     };
 
-    
+
     const lowInventory = [];
 
     return (
         <>
-          <h2>{category.categoryName}</h2>
-          <Link to="/home">
-            <button>Back to Home</button>
-        </Link>
-          <div className="container">
-            <h3>Items</h3>
-            <ul>
-                {items.map((item, index) => (
-                    <li key={index}>
-                        name: {item.itemName} quantity: {item.quantity} price: {item.price}
-                    </li>
-                ))}
-            </ul>
-          </div>
-          <div className="container">
-          <div>
-            <input
-            type="text"
-            value={newItem}
-            onChange={(e) => setNewItem(e.target.value)}
-            placeholder="Enter a new item name"
-            />
-            <button onClick={handleAddItem}>Add Item</button>
-        </div>
-            <h3>Low Inventory</h3>
-            <ul>
-                {lowInventory.map((item, index) => (
+            <h2>{category.categoryName}</h2>
+            <Link to="/home">
+                <button>Back to Home</button>
+            </Link>
+            <div className="container">
+                <h3>Items</h3>
+                <ul>
+                    {items.map((item, index) => (
+                        <li key={index}>
+                            name: {item.itemName} quantity: {item.quantity} price: {item.price}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div className="container">
+                <div>
+                    <input
+                        type="text"
+                        value={newItem}
+                        onChange={(e) => setNewItem(e.target.value)}
+                        placeholder="Enter a new item name"
+                    />
+                    <button onClick={handleAddItem}>Add Item</button>
+                </div>
+                <h3>Low Inventory</h3>
+                <ul>
+                    {lowInventory.map((item, index) => (
                         <li key={index}>{item}</li>
-                ))}
-            </ul>
-          </div>
+                    ))}
+                </ul>
+            </div>
 
-          <button onClick={openModalNewOrder}>New Order</button>
+            <button onClick={openModalAddItem}>Add Item</button>
 
-          <NewOrder isOpen={modalOpenNewOrder} onClose={closeModalNewOrder} />
+            <AddItem isOpen={modalOpenAddItem} onClose={closeModalAddItem} />
 
-          <button onClick={openModalReceipt}>Receipt</button>
+            <button onClick={openModalNewOrder}>New Order</button>
 
-          <Receipt isOpen={modalOpenReceipt} onClose={closeModalReceipt} />
+            <NewOrder isOpen={modalOpenNewOrder} onClose={closeModalNewOrder} />
+
+            <button onClick={openModalReceipt}>Receipt</button>
+
+            <Receipt isOpen={modalOpenReceipt} onClose={closeModalReceipt} />
         </>
     )
 };
