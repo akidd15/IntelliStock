@@ -18,7 +18,7 @@ export default function Receipt({ isOpen, onClose, items }) {
     
     setNames(value[1]);
     setItemId(value[0]);
-    setOldQuantity(value[2])
+    setOldQuantity(value[2]);
   }
 
   function handleQuantity(e, { value }) {
@@ -60,7 +60,7 @@ export default function Receipt({ isOpen, onClose, items }) {
           placeholder='Select Item'
           fluid
           selection
-          options= {items.map(item => ({ value: [item._id, item.itemName, item.quantity], text: item.itemName }))}
+          options={items.map(item => ({ value: [item._id, item.itemName, item.quantity], text: item.itemName }))}
           onChange={handleItem}
         />
         <label>How many were used?</label>
