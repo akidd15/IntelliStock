@@ -66,4 +66,15 @@ export const QUERY_ITEMS_BY_AUTHOR = gql`
       price
     }
   }
+`;
+
+export const QUERY_ITEM = gql`
+  query Item($itemId: ID!) {
+  item(itemId: $itemId) {
+    _id
+    itemName
+    quantity
+    price
+  }
+}
 `
