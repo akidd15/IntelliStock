@@ -1,97 +1,83 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-// added for database adding and query
-// import { useQuery } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CATEGORY } from "../utils/mutations";
 import { QUERY_USER } from "../utils/queries";
-// this can be used to check status of logged in
-import Auth from '../utils/auth'
+import { Input, Button, List, Grid } from "semantic-ui-react";
+import Auth from '../utils/auth';
 
 const Home = () => {
-    const [newCategory, setNewCategory] = useState('');
-    const [popUp, setPopUp] = useState(false);
-    // added for database
-    const [addCategory, { error }] = useMutation(
-        ADD_CATEGORY, {
-            // allows page to update immediately
-            refetchQueries: [
-                QUERY_USER,
-            ]
-        }
-        );
-    const { loading, data } = useQuery(QUERY_USER, {
-        variables: { username: Auth.getProfile().data.username },
-    });
-    const user = data?.user || [];
-    // console.log(user)
-    const categories = user.categories || [];
-    
-    const handleAddCategory = async (event) => {
-        
-        event.preventDefault();
+  const [newCategory, setNewCategory] = useState('');
+  const [popUp, setPopUp] = useState(false);
+  const [addCategory, { error }] = useMutation(
+    ADD_CATEGORY,
+    {
+      refetchQueries: [
+        QUERY_USER,
+      ],
+    }
+  );
+  const { loading, data } = useQuery(QUERY_USER, {
+    variables: { username: Auth.getProfile().data.username },
+  });
+  const user = data?.user || [];
+  const categories = user.categories || [];
 
-        try {
-            const { data } = await addCategory({
-                variables: {
-                    categoryName: newCategory,
-                    categoryAuthor: Auth.getProfile().data.username,
-                },
-            });
+  const handleAddCategory = async (event) => {
+    event.preventDefault();
 
-            setNewCategory('');
-            setPopUp(true)
-        } catch (err) {
-            console.error(err);
-        }
-    };
+    try {
+      const { data } = await addCategory({
+        variables: {
+          categoryName: newCategory,
+          categoryAuthor: Auth.getProfile().data.username,
+        },
+      });
 
-    const closePopUp = () => {
-        setPopUp(false);
-    };
+      setNewCategory('');
+      setPopUp(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    return (
-        <div className="main-container">
-            <div className="list-container">
-            <h1>Welcome!</h1>
-            <h3>My Categories</h3>
-        <ul>
-            {categories.map((category) => (
-                <li key={category._id}>
-                    <Link to={`/categories/${category._id}`}>{category.categoryName}</Link>
-                </li>
-            ))}
-        </ul>
+  const closePopUp = () => {
+    setPopUp(false);
+  };
 
-        <div>
-            <input
-            type="text"
-            value={newCategory}
-            onChange={(e) => setNewCategory(e.target.value)}
-            placeholder="Enter a new category"
-            />
-            <button onClick={handleAddCategory}>Add Category</button>
+  return (
+    <div className="main-container" style={{ backgroundColor: '#2c3e50', color: 'white', height: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
+      <div className="list-container" style={{ textAlign: 'center', width: '50%' }}>
+        <h1 style={{ paddingTop: '30px', paddingBottom: '10px', marginTop: 0 }}>Welcome!</h1>
+        <h3 style={{ paddingBottom: '20px' }}>My Categories</h3>
+        <List relaxed style={{ paddingBottom: '20px' }}>
+          {categories.map((category) => (
+            <List.Item key={category._id}>
+              <List.Content>
+                <Link to={`/categories/${category._id}`} style={{ color: 'white', textDecoration: 'none' }}>{category.categoryName}</Link>
+              </List.Content>
+            </List.Item>
+          ))}
+        </List>
+        <Input
+          fluid
+          icon="tags"
+          iconPosition="left"
+          placeholder="New category"
+          value={newCategory}
+          onChange={(e) => setNewCategory(e.target.value)}
+          style={{ width: '100%', paddingBottom: '10px' }}
+        />
+        <Button color="white" onClick={handleAddCategory}>Add Category</Button>
+      </div>
+      {popUp && (
+        <div className="pop-up-container">
+          <div className="pop-up-content">
+          </div>
         </div>
-        </div>
-        {/* <div className="low-items"> Future development feature.
-            <h3> Low Items </h3>
-        </div> */}
-        
-        {popUp && (
-            <div className="pop-up-container">
-                <div className="pop-up-content">
-                    <span className="close" onClick={closePopUp}>
-                        &times;
-                    </span>
-                    <p> New Category added successfully!</p>
-                </div>
-                </div>
-        )}
-        </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default Home;
-
