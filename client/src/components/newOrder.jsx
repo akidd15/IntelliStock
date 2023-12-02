@@ -53,27 +53,32 @@ export default function NewOrder({ isOpen, onClose, items }) {
 
   return (
     <Modal open={isOpen} onClose={onClose}>
-      <Modal.Header>Create New Order</Modal.Header>
+      <Modal.Header>Create New Order (add quantity)</Modal.Header>
       <Modal.Content>
-        <label>New Order:</label>
+        
+        <Dropdown.Header>Item to be increased:</Dropdown.Header>
         <Dropdown
+          id = 'orderItem'
           placeholder='Select Item'
           fluid
           selection
           options={items.map(item => ({ value: [item._id, item.itemName, item.quantity], text: item.itemName }))}
           onChange={handleOrderItem}
         />
-
         
+
+        <label htmlFor='orderQuantity'>Quantity:</label>
         <Input
+          id="orderQuantity"
           placeholder="Quantity"
           value={orderQuantity}
           onChange={handleOrderQuantity}
         />
 
 
-
+        <label htmlFor='orderPrice'>Price:</label>
         <Input
+          id="orderPrice"
           placeholder="Price"
           value={orderPrice}
           onChange={handleOrderPrice}
