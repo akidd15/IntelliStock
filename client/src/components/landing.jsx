@@ -102,8 +102,8 @@ export default function Landing() {
 
   return (
     <Grid
-      textAlign="center"
-      style={{ height: '100vh',
+      style={{ textAlign: "center",
+      height: '90vh',
       backgroundColor: 'white', 
       color: 'white',
       margin: 0, 
@@ -124,7 +124,7 @@ export default function Landing() {
           alignItems: 'center',
           background: 'linear-gradient(to bottom, #1d2b38, #2c3e50)', // Adjust the color values
         }}>
-          <p textAlign="center" style={{ color: 'white', fontSize: '15px', lineHeight: '2.15' }}>
+          <p style={{ textAlign: "center", color: 'white', fontSize: '15px', lineHeight: '2.15' }}>
             Welcome to IntelliStock – Your Intelligent Inventory Management Solution. Streamline your inventory tracking effortlessly, ensuring precision and control over your stock. Gain insights, make informed decisions, and elevate your inventory management experience with IntelliStock. Sign up now and embrace a smarter way to manage your stock!
           </p>
         </Grid.Column>
