@@ -26,7 +26,7 @@ export default function Categories() {
     const items = category.items || [];
 
     const handleDelete = async (itemId) => {
-        console.log(itemId)
+        
         try {
             await removeItem({
                 variables: {
