@@ -78,7 +78,7 @@ export default function Categories() {
             
             <h2 style={{ fontSize: '50px', marginTop:'1px' }}>{category.categoryName}</h2>
 
-            
+            <p>Keep track of items in <span>"{category.categoryName}"</span> by adding them below</p>
 
             <AddItem isOpen={modalOpenAddItem} onClose={closeModalAddItem} />
 
@@ -115,19 +115,21 @@ export default function Categories() {
 
             
             <div style={{ marginTop: '40px' }}>
-            <button className='ui green button' onClick={openModalNewOrder}>New Order</button>
+            <p>Order allows you to add quantity to an existing item.</p>
+            <button className='ui green button' onClick={openModalNewOrder}>Order</button>
             </div>
+
+            <div style={{ marginTop: '20px', marginBottom:'20px' }}>
+                <p>Receipt allows you to deduct quantity from an existing item.</p>
+            <button className='ui red button' onClick={openModalReceipt}>Receipt</button>
+            </div>
+            <div style={{height:'50px'}}></div>
 
             <NewOrder
                 isOpen={modalOpenNewOrder}
                 onClose={closeModalNewOrder}
                 items={items}
             />
-
-            <div style={{ marginTop: '20px', marginBottom:'20px' }}>
-            <button className='ui red button' onClick={openModalReceipt}>Receipt</button>
-            </div>
-            <div style={{height:'50px'}}></div>
 
             <Receipt
                 isOpen={modalOpenReceipt}
