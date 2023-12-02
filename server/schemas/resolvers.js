@@ -142,20 +142,20 @@ const resolvers = {
       },
       // throw AuthenticationError;},
 
-    removeItem: async (parent, { categoryId, itemId }) => {
+    removeItem: async (parent, { itemId }) => {
       return Category.findOneAndUpdate(
-        { _id: categoryId },
+        { "items._id": itemId },
         {
-          pull: {
+          $pull: {
             items: {
-              _id: itemId,
-            },
-          },
+              _id: itemId
+            }
+          }
         },
         {
           new: true
         }
-      )
+      );
     }
   },
 };
