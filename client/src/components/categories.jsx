@@ -11,7 +11,7 @@ export default function Categories() {
     const [modalOpenReceipt, setModalOpenReceipt] = useState(false);
     const [modalOpenNewOrder, setModalOpenNewOrder] = useState(false);
     const [modalOpenAddItem, setModalOpenAddItem] = useState(false);
-    const [removeItem] = useMutation(REMOVE_ITEM,{
+    const [removeItem] = useMutation(REMOVE_ITEM, {
         refetchQueries: [
             QUERY_SINGLE_CATEGORY
         ]
@@ -26,7 +26,7 @@ export default function Categories() {
     const items = category.items || [];
 
     const handleDelete = async (itemId) => {
-        
+
         try {
             await removeItem({
                 variables: {
@@ -63,29 +63,30 @@ export default function Categories() {
     }
 
     return (
-        <div className='ui container' style={{ marginTop: '75px',
-        textAlign: 'center',
-        height: '75%'
+        <div className='ui container' style={{
+            marginTop: '75px',
+            textAlign: 'center',
+            height: '75%'
         }}>
-            
-            <div style={{ display:'flex' }}>
+
+            <div style={{ display: 'flex' }}>
                 <Link to="/home" className=''>
                     -- Back
                 </Link>
             </div>
 
-            <h4 style={{margin:'1px'}}>Category Name:</h4>
-            
-            <h2 style={{ fontSize: '50px', marginTop:'1px' }}>{category.categoryName}</h2>
+            <h4 style={{ margin: '1px', color: 'whitesmoke' }}>Category Name:</h4>
 
-            
+            <h2 style={{ fontSize: '50px', marginTop: '1px', color: 'whitesmoke' }}>{category.categoryName}</h2>
+
+
 
             <AddItem isOpen={modalOpenAddItem} onClose={closeModalAddItem} />
 
             <div className="ui container">
                 <div style={{}}>
-                    
-                    <button style={{ marginTop: '10px', marginBottom:'20px' }} onClick={openModalAddItem}>Add Item</button>
+
+                    <button style={{ marginTop: '10px', marginBottom: '20px' }} onClick={openModalAddItem}>Add Item</button>
                 </div>
                 <table className="ui celled table">
                     <thead>
@@ -98,24 +99,24 @@ export default function Categories() {
                     </thead>
                     <tbody>
                         {items.map((item) => (
-                        <tr key={item._id}>
-                            <td>{item.itemName}</td>
-                            <td className="right aligned">{item.quantity}</td>
-                            <td className="right aligned">{item.price}</td>
-                            <td className="center aligned">
-                                <button className="ui red button" onClick={() => handleDelete(item._id)}>
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
+                            <tr key={item._id}>
+                                <td>{item.itemName}</td>
+                                <td className="right aligned">{item.quantity}</td>
+                                <td className="right aligned">{item.price}</td>
+                                <td className="center aligned">
+                                    <button className="ui red button" onClick={() => handleDelete(item._id)}>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
 
-            
+
             <div style={{ marginTop: '40px' }}>
-            <button className='ui green button' onClick={openModalNewOrder}>New Order</button>
+                <button className='ui green button' onClick={openModalNewOrder}>New Order</button>
             </div>
 
             <NewOrder
@@ -124,17 +125,17 @@ export default function Categories() {
                 items={items}
             />
 
-            <div style={{ marginTop: '20px', marginBottom:'20px' }}>
-            <button className='ui red button' onClick={openModalReceipt}>Receipt</button>
+            <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+                <button className='ui red button' onClick={openModalReceipt}>Receipt</button>
             </div>
-            <div style={{height:'50px'}}></div>
+            <div style={{ height: '50px' }}></div>
 
             <Receipt
                 isOpen={modalOpenReceipt}
                 onClose={closeModalReceipt}
                 items={items}
             />
-            
+
         </div>
     );
 }

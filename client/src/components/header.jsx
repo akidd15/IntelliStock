@@ -12,22 +12,22 @@ const Header = () => {
 
   return (
     <header style={{ backgroundColor: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1em' }}>
-      
-        {Auth.loggedIn() ? (
-          <div>
-            <Link to="/home">
-              <h1 style={{ margin: 0, paddingRight: '10px', paddingTop: '5px' }}>Intellistock</h1>
-            </Link>
-            <p style={{ margin: 0 }}>Keep track of your inventory</p>
-          </div>
-        ):(
-          <div>
-            <h1 style={{ margin: 0, paddingRight: '10px', paddingTop: '5px' }}>Intellistock</h1>
-            <p style={{ margin: 0 }}>Keep track of your inventory</p>
+
+      {Auth.loggedIn() ? (
+        <div>
+          <Link to="/home">
+            <h1 style={{ margin: 0, paddingRight: '10px', paddingTop: '5px' }}>IntelliStock</h1>
+          </Link>
+          <p style={{ margin: 0 }}>Keep track of your inventory</p>
+        </div>
+      ) : (
+        <div>
+          <h1 style={{ margin: 0, paddingRight: '10px', paddingTop: '5px' }}>IntelliStock</h1>
+          <p style={{ margin: 0 }}>Keep track of your inventory</p>
         </div>
       )}
-        
-      
+
+
       <div>
         {Auth.loggedIn() && (
           <Link to="/home" style={{ marginRight: '10px' }}>
@@ -36,7 +36,7 @@ const Header = () => {
         )}
         {Auth.loggedIn() && (
           <Button color="red" onClick={logout} size="small">
-          Logout
+            Logout
           </Button>
         )}
       </div>

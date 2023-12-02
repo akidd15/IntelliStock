@@ -87,31 +87,38 @@ const resolvers = {
     updateItem: async (parent, { itemId, itemName, quantity, price }) => {
       try {
         const updateFields = {};
-
+    
         // Check if each field is provided before adding it to the updateFields object
-        if (itemName !== undefined) updateFields['items.$.itemName'] = itemName;
-        if (quantity !== undefined) updateFields['items.$.quantity'] = quantity;
-        if (price !== undefined) updateFields['items.$.price'] = price;
-
+        if (itemName !== undefined && itemName !== null) {
+          updateFields['items.$.itemName'] = itemName;
+        }
+    
+        if (quantity !== undefined && quantity !== null) {
+          updateFields['items.$.quantity'] = quantity;
+        }
+    
+        if (price !== undefined && price !== null) {
+          updateFields['items.$.price'] = price;
+        }
+    
         // Use findOneAndUpdate to find and update the specific item
         await Category.findOneAndUpdate(
           { 'items._id': itemId },
           { $set: updateFields },
-          { 
-            new: true,
+          { new: true }
+        );
+    
+        const updatedCategory = await Category.findOne({ 'items._id': itemId }).then(
+          (category) => {
+            // Find and return the item with the specified itemId
+            return category ? category.items.find((item) => item._id.toString() === itemId) : null;
           }
         );
-
-        const updatedCategory = await Category.findOne({ 'items._id': itemId }).then(
-          category => {
-          // Find and return the item with the specified itemId
-          return category ? category.items.find(item => item._id.toString() === itemId) : null;
-        });;
-
+    
         if (!updatedCategory) {
           throw new Error('Item not found in category');
         }
-
+    
         return updatedCategory;
       } catch (error) {
         throw new Error(`Error updating item: ${error.message}`);
