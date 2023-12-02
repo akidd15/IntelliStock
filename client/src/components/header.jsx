@@ -35,8 +35,8 @@ const Header = () => {
           </Link>
         )}
         {Auth.loggedIn() && (
-          <Button icon color="red" onClick={logout} size="small">
-            <Icon name="log out" />
+          <Button color="red" onClick={logout} size="small">
+          Logout
           </Button>
         )}
       </div>
