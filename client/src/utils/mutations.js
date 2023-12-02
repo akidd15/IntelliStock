@@ -60,13 +60,13 @@ export const ADD_ITEM = gql`
 
 export const UPDATE_ITEM = gql`
   mutation UpdateItem($itemId: ID!, $itemName: String, $quantity: Int, $price: Float) {
-  updateItem(itemId: $itemId, itemName: $itemName, quantity: $quantity, price: $price) {
-    _id
-    itemName
-    quantity
-    price
+    updateItem(itemId: $itemId, itemName: $itemName, quantity: $quantity, price: $price) {
+      _id
+      itemName
+      quantity
+      price
+    }
   }
-}
 `;
 
 export const REMOVE_ITEM = gql`
