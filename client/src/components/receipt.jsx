@@ -55,7 +55,7 @@ export default function Receipt({ isOpen, onClose, items }) {
     <Modal open={isOpen} onClose={onClose}>
       <Modal.Header>Create New Receipt (subtracted)</Modal.Header>
       <Modal.Content>
-        <Dropdown.Header>Item to be reduced:</Dropdown.Header>
+        <Dropdown.Header>Items used:</Dropdown.Header>
         <Dropdown
           placeholder='Select Item'
           fluid

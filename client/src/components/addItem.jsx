@@ -43,8 +43,6 @@ export default function AddItem({ isOpen, onClose }) {
 
         event.preventDefault();
 
-        console.log('categoryId:', categoryId);
-
         try {
             const { data } = await addItem({
                 variables: {
@@ -73,20 +71,23 @@ export default function AddItem({ isOpen, onClose }) {
         <Modal open={isOpen} onClose={onClose}>
             <Modal.Header>Add New Item</Modal.Header>
             <Modal.Content>
-                <label>Name:</label>
+                <label htmlFor='newItem'>Name:</label>
                 <Input
+                    id='newItem'
                     placeholder="Item Name"
                     value={newItem}
                     onChange={handleItem}
                 />
-                <label>Quantity:</label>
+                <label htmlFor='quantity'>Quantity:</label>
                 <Input
+                    id='quantity'
                     placeholder="Quantity"
                     value={quantity}
                     onChange={handleQuantity}
                 />
-                <label>Price:</label>
+                <label htmlFor='price'>Price:</label>
                 <Input
+                    id='price'
                     placeholder="Price"
                     value={price}
                     onChange={handlePrice}
