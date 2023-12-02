@@ -103,7 +103,7 @@ export default function Landing() {
   return (
     <Grid
       textAlign="center"
-      style={{ height: '100vh',
+      style={{ height: '90vh',
       backgroundColor: 'white', 
       color: 'white',
       margin: 0, 
