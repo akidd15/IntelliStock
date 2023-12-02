@@ -9,6 +9,16 @@ export const LoginForm = () => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
 
+  //   // Email validation
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   setEmailError(emailRegex.test(enteredEmail) ? '' : 'Invalid email address');
+  // };
+
+  // const isLoginFormValid = () => {
+  //   // Check if all fields in the login form are valid
+  //   return username !== '' && password !== '';
+  // };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
