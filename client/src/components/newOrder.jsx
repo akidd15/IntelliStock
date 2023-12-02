@@ -15,10 +15,15 @@ export default function NewOrder({ isOpen, onClose, items }) {
 
 
   function handleOrderItem(e, { value }) {
+    setOrderNames(value.itemName)
+    setOrderItemId(value._id)
+    setOrderOldQuantity(value.quantity)
 
-    setOrderNames(value[1]);
-    setOrderItemId(value[0]);
-    setOrderOldQuantity(value[2]);
+    // [item._id, item.itemName, item.quantity]
+
+    // setOrderNames(value[1]);
+    // setOrderItemId(value[0]);
+    // setOrderOldQuantity(value[2]);
   }
 
   function handleOrderQuantity(e, { value }) {
@@ -53,27 +58,33 @@ export default function NewOrder({ isOpen, onClose, items }) {
 
   return (
     <Modal open={isOpen} onClose={onClose}>
-      <Modal.Header>Create New Order</Modal.Header>
+      <Modal.Header>Create New Order (add quantity)</Modal.Header>
       <Modal.Content>
-        <label>New Order:</label>
+        
+        <Dropdown.Header>Item to be ordered:</Dropdown.Header>
         <Dropdown
-          placeholder='Select Item'
           fluid
+          placeholder='Select Item'
           selection
-          options={items.map(item => ({ value: [item._id, item.itemName, item.quantity], text: item.itemName }))}
+          options={items.map(item => ({ value: item, text: item.itemName }))}
           onChange={handleOrderItem}
         />
-
         
+
+        <label htmlFor='orderQuantity'>How many to be added?</label>
+        <br />
         <Input
+          id="orderQuantity"
           placeholder="Quantity"
           value={orderQuantity}
           onChange={handleOrderQuantity}
         />
 
-
-
+        <br />
+        <label htmlFor='orderPrice'>Price:</label>
+        <br />
         <Input
+          id="orderPrice"
           placeholder="Price"
           value={orderPrice}
           onChange={handleOrderPrice}

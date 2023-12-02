@@ -26,7 +26,7 @@ const Home = () => {
         variables: { username: Auth.getProfile().data.username },
     });
     const user = data?.user || [];
-    console.log(user)
+    // console.log(user)
     const categories = user.categories || [];
     
     const handleAddCategory = async (event) => {

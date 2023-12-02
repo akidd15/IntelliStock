@@ -53,9 +53,9 @@ export default function Receipt({ isOpen, onClose, items }) {
 
   return (
     <Modal open={isOpen} onClose={onClose}>
-      <Modal.Header>Create New Receipt</Modal.Header>
+      <Modal.Header>Create New Receipt (subtracted)</Modal.Header>
       <Modal.Content>
-        <label>Receipt Items:</label>
+        <Dropdown.Header>Items used:</Dropdown.Header>
         <Dropdown
           placeholder='Select Item'
           fluid
@@ -63,17 +63,19 @@ export default function Receipt({ isOpen, onClose, items }) {
           options={items.map(item => ({ value: [item._id, item.itemName, item.quantity], text: item.itemName }))}
           onChange={handleItem}
         />
-        <label>How many were used?</label>
+        <label htmlFor='quantity'>How many were used?</label>
         <br></br>
         <Input
+          id='quantity'
           placeholder="Quantity"
           value={quantity}
           onChange={handleQuantity}
         />
         <br></br>
-        <label>New price?</label>
+        <label htmlFor='price'>New price?</label>
         <br></br>
         <Input
+          id='price'
           placeholder="Price"
           value={price}
           onChange={handlePrice}

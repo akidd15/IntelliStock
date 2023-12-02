@@ -43,7 +43,7 @@ const typeDefs = `
         addItem(categoryId: ID!, itemName: String, quantity: Int, price: Float): Category
         updateItem(itemId: ID!, itemName: String, quantity: Int, price: Float): Item
         removeCategory(categoryId: ID!, userId: ID!): Category
-        removeItem(categoryId: ID!, itemId: ID!): Category
+        removeItem(itemId: ID!): Item
     }
 `
 // removeCategory wont need userId once context is enabled in resolvers

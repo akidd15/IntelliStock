@@ -2,14 +2,20 @@ import { useState } from 'react';
 import Receipt from './receipt';
 import NewOrder from './newOrder';
 import { Link, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_SINGLE_CATEGORY } from '../utils/queries';
 import AddItem from './addItem';
+import { REMOVE_ITEM } from '../utils/mutations';
 
 export default function Categories() {
     const [modalOpenReceipt, setModalOpenReceipt] = useState(false);
     const [modalOpenNewOrder, setModalOpenNewOrder] = useState(false);
     const [modalOpenAddItem, setModalOpenAddItem] = useState(false);
+    const [removeItem] = useMutation(REMOVE_ITEM,{
+        refetchQueries: [
+            QUERY_SINGLE_CATEGORY
+        ]
+    });
 
     const { categoryId } = useParams();
 
@@ -18,6 +24,19 @@ export default function Categories() {
     });
     const category = data?.category || [];
     const items = category.items || [];
+
+    const handleDelete = async (itemId) => {
+        
+        try {
+            await removeItem({
+                variables: {
+                    itemId: itemId
+                }
+            })
+        } catch (error) {
+            console.error('Error deleting item:', error.message);
+        }
+    };
 
     function openModalAddItem() {
         setModalOpenAddItem(true);
@@ -71,22 +90,23 @@ export default function Categories() {
                 <table className="ui celled table">
                     <thead>
                         <tr>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th style={{ width: '80px' }}></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {items.map((item, index) => (
-                        <tr key={index}>
+                        {items.map((item) => (
+                        <tr key={item._id}>
                             <td>{item.itemName}</td>
                             <td className="right aligned">{item.quantity}</td>
                             <td className="right aligned">{item.price}</td>
                             <td className="center aligned">
-        <button className="ui red button" onClick={() => handleDelete(item)}>
-          Delete
-        </button>
-      </td>
+                                <button className="ui red button" onClick={() => handleDelete(item._id)}>
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                         ))}
                     </tbody>
@@ -104,9 +124,10 @@ export default function Categories() {
                 items={items}
             />
 
-            <div style={{ marginTop: '20px' }}>
+            <div style={{ marginTop: '20px', marginBottom:'20px' }}>
             <button className='ui red button' onClick={openModalReceipt}>Receipt</button>
             </div>
+            <div style={{height:'50px'}}></div>
 
             <Receipt
                 isOpen={modalOpenReceipt}
