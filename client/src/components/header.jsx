@@ -16,13 +16,13 @@ const Header = () => {
         {Auth.loggedIn() ? (
           <div>
             <Link to="/home">
-              <h1 style={{ margin: 0, paddingRight: '10px', paddingTop: '5px' }}>Intellistock</h1>
+              <h1 style={{ margin: 0, paddingRight: '10px', paddingTop: '5px' }}>IntelliStock</h1>
             </Link>
             <p style={{ margin: 0 }}>Keep track of your inventory</p>
           </div>
         ):(
           <div>
-            <h1 style={{ margin: 0, paddingRight: '10px', paddingTop: '5px' }}>Intellistock</h1>
+            <h1 style={{ margin: 0, paddingRight: '10px', paddingTop: '5px' }}>IntelliStock</h1>
             <p style={{ margin: 0 }}>Keep track of your inventory</p>
         </div>
       )}

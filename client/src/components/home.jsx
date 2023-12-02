@@ -16,21 +16,21 @@ const Home = () => {
     // added for database
     const [addCategory, { error }] = useMutation(
         ADD_CATEGORY, {
-            // allows page to update immediately
-            refetchQueries: [
-                QUERY_USER,
-            ]
-        }
-        );
+        // allows page to update immediately
+        refetchQueries: [
+            QUERY_USER,
+        ]
+    }
+    );
     const { loading, data } = useQuery(QUERY_USER, {
         variables: { username: Auth.getProfile().data.username },
     });
     const user = data?.user || [];
-    // console.log(user)
+    console.log(user)
     const categories = user.categories || [];
-    
+
     const handleAddCategory = async (event) => {
-        
+
         event.preventDefault();
 
         try {
@@ -55,43 +55,42 @@ const Home = () => {
     return (
         <div className="main-container">
             <div className="list-container">
-            <h1>Welcome!</h1>
-            <h3>My Categories</h3>
-        <ul>
-            {categories.map((category) => (
-                <li key={category._id}>
-                    <Link to={`/categories/${category._id}`}>{category.categoryName}</Link>
-                </li>
-            ))}
-        </ul>
+                <h1>Welcome!</h1>
+                <h3>My Categories</h3>
+                <ul>
+                    {categories.map((category) => (
+                        <li key={category._id}>
+                            <Link to={`/categories/${category._id}`}>{category.categoryName}</Link>
+                        </li>
+                    ))}
+                </ul>
 
-        <div>
-            <input
-            type="text"
-            value={newCategory}
-            onChange={(e) => setNewCategory(e.target.value)}
-            placeholder="Enter a new category"
-            />
-            <button onClick={handleAddCategory}>Add Category</button>
-        </div>
-        </div>
-        {/* <div className="low-items"> Future development feature.
+                <div>
+                    <input
+                        type="text"
+                        value={newCategory}
+                        onChange={(e) => setNewCategory(e.target.value)}
+                        placeholder="Enter a new category"
+                    />
+                    <button onClick={handleAddCategory}>Add Category</button>
+                </div>
+            </div>
+            {/* <div className="low-items"> Future development feature.
             <h3> Low Items </h3>
         </div> */}
-        
-        {popUp && (
-            <div className="pop-up-container">
-                <div className="pop-up-content">
-                    <span className="close" onClick={closePopUp}>
-                        &times;
-                    </span>
-                    <p> New Category added successfully!</p>
+
+            {popUp && (
+                <div className="pop-up-container">
+                    <div className="pop-up-content">
+                        <span className="close" onClick={closePopUp}>
+                            &times;
+                        </span>
+                        <p> New Category added successfully!</p>
+                    </div>
                 </div>
-                </div>
-        )}
+            )}
         </div>
     );
 };
 
 export default Home;
-
