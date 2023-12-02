@@ -62,14 +62,15 @@ export default function NewOrder({ isOpen, onClose, items }) {
 
   return (
     <Modal open={isOpen} onClose={onClose} closeOnDimmerClick={false}>
-      <Modal.Header>Create New Order (add quantity)</Modal.Header>
+      <Modal.Header>Create New Order</Modal.Header>
       <Modal.Content>
+      <p>Create a new order when you would like to add more stock to inventory!</p>
         {errorText && (
           <Message negative>
             <Message.Header>{errorText}</Message.Header>
           </Message>
         )}
-        <Dropdown.Header>Item to be ordered:</Dropdown.Header>
+        <Dropdown.Header>Select Item</Dropdown.Header>
         <Dropdown
           fluid
           placeholder='Select Item'
@@ -78,7 +79,7 @@ export default function NewOrder({ isOpen, onClose, items }) {
           onChange={handleOrderItem}
         />
 
-        <label htmlFor='orderQuantity'>How many to be added?</label>
+        <label htmlFor='orderQuantity'>Quantity Ordered</label>
         <br />
         <Input
           id="orderQuantity"
@@ -88,7 +89,7 @@ export default function NewOrder({ isOpen, onClose, items }) {
         />
 
         <br />
-        <label htmlFor='orderPrice'>Price:</label>
+        <label htmlFor='orderPrice'>Price</label>
         <br />
         <Input
           id="orderPrice"
@@ -96,6 +97,7 @@ export default function NewOrder({ isOpen, onClose, items }) {
           value={orderPrice}
           onChange={handleOrderPrice}
         />
+        <p> Note: (Leave blank if prices haven't changed)</p>
       </Modal.Content>
       <Modal.Actions>
         <Button color='red' onClick={() => { resetOrderForm(); onClose(); }}>
