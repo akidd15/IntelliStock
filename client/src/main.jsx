@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Landing from './components/landing';
 import Categories from './components/categories';
 import Home from './components/home';
+import './main.css'
 
 const router = createBrowserRouter([
   {
