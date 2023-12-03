@@ -1,36 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Dropdown, Input, Message } from 'semantic-ui-react';
+import { Modal, Button, Input, Message } from 'semantic-ui-react';
 import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM } from '../utils/mutations';
 
-export default function Receipt({ isOpen, onClose, items }) {
+export default function Receipt({ 
+  isOpen, 
+  onClose, 
+  currentItemId, 
+  currentName, 
+  currentQuantity, 
+  currentPrice }) {
   // State variables
-  const [quantity, setQuantity] = useState('');
-  const [price, setPrice] = useState('');
-  const [originalPrice, setOriginalPrice] = useState('');
-  const [names, setNames] = useState('');
+  const [receiptQuantity, setReceiptQuantity] = useState('');
+  const [receiptPrice, setReceiptPrice] = useState('');
+  
   const [oldQuantity, setOldQuantity] = useState('');
-  const [itemId, setItemId] = useState(null);
+  
   const [updateItem, { error }] = useMutation(UPDATE_ITEM);
   const [errorText, setErrorText] = useState('');
 
   // Effect to set original price when an item is selected
-  useEffect(() => {
-    setOriginalPrice(price);
-  }, [itemId, price]);
+  // useEffect(() => {
+  //   setOriginalPrice(price);
+  // }, [itemId, price]);
 
   // Event handler for selecting an item from the dropdown
-  function handleItem(e, { value }) {
-    setNames(value[1]);
-    setItemId(value[0]);
-    setOldQuantity(value[2]);
-    setErrorText('');
-  }
+  // function handleItem(e, { value }) {
+  //   setNames(value[1]);
+  //   setItemId(value[0]);
+  //   setOldQuantity(value[2]);
+  //   setErrorText('');
+  // }
 
   // Event handler for quantity input
   function handleQuantity(e, { value }) {
     if (value !== null && !isNaN(value)) {
-      setQuantity(value);
+      setReceiptQuantity(value);
     }
   }
 
@@ -39,19 +44,17 @@ export default function Receipt({ isOpen, onClose, items }) {
     console.log('Value:', value);
 
     if (value !== null && value !== undefined && value !== '') {
-      setPrice(value);
+      setReceiptPrice(value);
     } else {
       console.log('test');
-      setOriginalPrice(value);
+      // setOriginalPrice(value);
     }
   }
 
   // Function to reset form state
   function resetForm() {
-    setQuantity('');
-    setPrice('');
-    setNames('');
-    setItemId(null);
+    setReceiptQuantity('');
+    setReceiptPrice('');
     setErrorText('');
   }
 
@@ -59,21 +62,21 @@ export default function Receipt({ isOpen, onClose, items }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (itemId === null) {
+    if (currentItemId === null) {
       setErrorText('Please select an item.');
       return;
     }
 
     try {
-      setOldQuantity(Number(oldQuantity) - Number(quantity));
+      setOldQuantity(Number(oldQuantity) - Number(receiptQuantity));
 
       // Use the updateItem mutation
       await updateItem({
         variables: {
-          itemId: itemId,
-          itemName: names,
-          quantity: Number(oldQuantity - quantity),
-          price: price !== '' ? Number(price) : undefined,
+          itemId: currentItemId,
+          itemName: currentName,
+          quantity: Number(currentQuantity - receiptQuantity),
+          price: receiptPrice !== '' ? Number(receiptPrice) : undefined,
         },
       });
 
@@ -96,37 +99,27 @@ export default function Receipt({ isOpen, onClose, items }) {
         )}
         <p>Used some of your inventory? Create a receipt to keep track of what you used and update stock!</p>
         <div>
-          <Dropdown.Header>Select Item</Dropdown.Header>
-          <Dropdown
-            placeholder='Select Item'
-            fluid
-            selection
-            options={items.map(item => ({
-              value: [item._id, item.itemName, item.quantity, item.price],
-              text: item.itemName,
-            }))}
-            onChange={handleItem}
-          />
+         <h1>{currentName}</h1>
         </div>
         <div>
-          <label htmlFor='quantity'>Quantity Used</label>
-          <br />
+          <label htmlFor='receiptQuantity'>Current quantity: {currentQuantity} -</label>
+          
           <Input
-            id='quantity'
+            id='receiptQuantity'
             placeholder="Quantity"
-            value={quantity}
+            value={receiptQuantity}
             onChange={handleQuantity}
           />
         </div>
         <div>
-          <label htmlFor='price'>Price</label>
-          <br />
+          <label htmlFor='receiptPrice'>Current price: ${currentPrice} New price: </label>
+          
           <Input
-            id='price'
+            id='receiptPrice'
             placeholder="Price"
-            value={price}
+            value={receiptPrice}
             onChange={handlePrice}
-          /> <p> Note: (Leave blank if prices haven't changed)</p>
+          /> <p> Note: (Leave blank if prices have not changed)</p>
         </div>
       </Modal.Content>
       <Modal.Actions>
