@@ -6,6 +6,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_SINGLE_CATEGORY } from '../utils/queries';
 import AddItem from './addItem';
 import { REMOVE_ITEM } from '../utils/mutations';
+import { Icon, Label, Table, TableBody, TableCell, TableHeaderCell } from 'semantic-ui-react'
 
 export default function Categories() {
     const [modalOpenReceipt, setModalOpenReceipt] = useState(false);
@@ -68,7 +69,8 @@ export default function Categories() {
         <div className='ui container' style={{
             marginTop: '75px',
             textAlign: 'center',
-            height: '75%'
+            height: '75%',
+            color: 'whitesmoke'
         }}>
             
             <div style={{ display: 'flex' }}>
@@ -90,30 +92,76 @@ export default function Categories() {
                     
                     <button style={{ marginTop: '10px', marginBottom: '20px' }} onClick={openModalAddItem}>Add Item</button>
                 </div>
-                <table className="ui celled table">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th style={{ width: '80px' }}></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div>
+                {items.length > 0 ? (
+                <Table celled striped>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell colSpan='3'>
+                                Items
+                            </Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell className='center aligned' rowSpan='2'>
+                                Name
+                            </Table.HeaderCell>
+                            <TableHeaderCell>
+                                +
+                            </TableHeaderCell>
+                            <Table.HeaderCell className='center aligned' rowSpan='2'>
+                                Quantity
+                            </Table.HeaderCell>
+                            <TableHeaderCell>
+                                -
+                            </TableHeaderCell>
+                            <Table.HeaderCell className='right aligned' rowSpan='2'>
+                                Price
+                            </Table.HeaderCell>
+                            
+                            <Table.HeaderCell style={{ width: '80px' }}></Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
                         {items.map((item) => (
-                            <tr key={item._id}>
-                                <td>{item.itemName.charAt(0).toUpperCase() + item.itemName.slice(1)}</td>
-                                <td className="right aligned">{item.quantity}</td>
-                                <td className="right aligned">{item.price}</td>
-                                <td className="center aligned">
-                                    <button className="ui red button" onClick={() => handleDelete(item._id)}>
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
+                            <Table.Row key={item._id}>
+                                <Table.Cell>
+                                    <Label ribbon>
+                                        {item.itemName.charAt(0).toUpperCase() + item.itemName.slice(1)}
+                                    </Label>
+                                </Table.Cell>
+                                
+                                <TableCell>
+                                    <button>+</button>
+                                </TableCell>
+
+                                <Table.Cell className="right aligned">
+                                    {item.quantity}
+                                </Table.Cell>
+                                
+                                <TableCell>
+                                    <button>-</button>
+                                </TableCell>
+
+                                <Table.Cell className="right aligned">
+                                    {item.price}
+                                </Table.Cell>
+                                
+                                <Table.Cell className="center aligned">
+                                    <Icon link name='delete' style={{color:'red'}} onClick={() => handleDelete(item._id)} />
+                                        
+                                        
+                                    
+                                </Table.Cell>
+                            </Table.Row>
                         ))}
-                    </tbody>
-                </table>
+                    </Table.Body>
+                </Table>
+                ):(
+                    <p style={{ color:'aliceblue' }}>--Add items with the Add Item button--</p>
+                )}
+                </div>
             </div>
 
             
