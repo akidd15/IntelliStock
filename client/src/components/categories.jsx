@@ -6,7 +6,16 @@ import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_SINGLE_CATEGORY } from '../utils/queries';
 import AddItem from './addItem';
 import { REMOVE_ITEM } from '../utils/mutations';
-import { Icon, Label, Table, TableBody, TableCell, TableHeaderCell } from 'semantic-ui-react'
+import { 
+    Icon, 
+    Button,
+    Label, 
+    Table,
+    TableHeader,
+    TableRow, 
+    TableBody, 
+    TableCell, 
+    TableHeaderCell } from 'semantic-ui-react'
 
 export default function Categories() {
     const [modalOpenReceipt, setModalOpenReceipt] = useState(false);
@@ -70,7 +79,8 @@ export default function Categories() {
             marginTop: '75px',
             textAlign: 'center',
             height: '75%',
-            color: 'whitesmoke'
+            color: 'whitesmoke',
+            fontSize: '18px'
         }}>
             
             <div style={{ display: 'flex' }}>
@@ -81,89 +91,94 @@ export default function Categories() {
 
             <h4 style={{ margin: '1px', color: 'whitesmoke' }}>Category Name:</h4>
 
-            <h2 style={{ fontSize: '50px', marginTop: '1px', color: 'whitesmoke' }}>{category.categoryName}</h2>
+            <h2 style={{ color: 'darkcyan',fontSize: '50px', marginTop: '1px' }}>
+                {category.categoryName} 
+                <Icon name='list alternate outline' color='blue' />
+            </h2>
 
-            <p>Keep track of items in <span>"{category.categoryName}"</span> by adding them below</p>
+            <p>Keep track of items in <span style={{ color:'yellow' }}>"{category.categoryName}"</span> by adding them with "Add Item"</p>
 
             <AddItem isOpen={modalOpenAddItem} onClose={closeModalAddItem} />
 
             <div className="ui container">
                 <div style={{}}>
                     
-                    <button style={{ marginTop: '10px', marginBottom: '20px' }} onClick={openModalAddItem}>Add Item</button>
+                    <Button color='blue' style={{ marginTop: '10px', marginBottom: '20px' }} onClick={openModalAddItem}>Add Item</Button>
                 </div>
                 <div>
                 {items.length > 0 ? (
-                <Table celled striped>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell colSpan='3'>
+                <Table color='teal' key={'teal'} celled inverted>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHeaderCell colSpan='6'>
                                 Items
-                            </Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell className='center aligned' rowSpan='2'>
+                            </TableHeaderCell>
+                        </TableRow>
+                    </TableHeader>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHeaderCell className='center aligned'>
                                 Name
-                            </Table.HeaderCell>
-                            <TableHeaderCell>
-                                +
                             </TableHeaderCell>
-                            <Table.HeaderCell className='center aligned' rowSpan='2'>
+                            <TableHeaderCell className='center aligned'>
                                 Quantity
-                            </Table.HeaderCell>
-                            <TableHeaderCell>
-                                -
                             </TableHeaderCell>
-                            <Table.HeaderCell className='right aligned' rowSpan='2'>
+                            <TableHeaderCell className='right aligned'>
                                 Price
-                            </Table.HeaderCell>
-                            
-                            <Table.HeaderCell style={{ width: '80px' }}></Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
+                            </TableHeaderCell>
+                            <TableHeaderCell style={{ width: '80px' }}>
+                                Order
+                            </TableHeaderCell>
+                            <TableHeaderCell style={{ width: '80px' }}>
+                                Receipt
+                            </TableHeaderCell>
+                               
+                            <TableHeaderCell style={{ width: '80px' }}>
+                                Delete?
+                            </TableHeaderCell>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
                         {items.map((item) => (
-                            <Table.Row key={item._id}>
-                                <Table.Cell>
-                                    <Label ribbon>
+                            <TableRow key={item._id}>
+                                <TableCell>
+                                    <Label color='blue' style={{ fontSize:'18px' }} ribbon>
                                         {item.itemName.charAt(0).toUpperCase() + item.itemName.slice(1)}
                                     </Label>
-                                </Table.Cell>
-                                
-                                <TableCell>
-                                    <button>+</button>
                                 </TableCell>
-
-                                <Table.Cell className="right aligned">
+                                <TableCell className="center aligned">
                                     {item.quantity}
-                                </Table.Cell>
-                                
-                                <TableCell>
-                                    <button>-</button>
+                                </TableCell>
+                                <TableCell className="right aligned">
+                                    <Icon link name='dollar sign' style={{color:'black'}} />
+                                    {item.price}
                                 </TableCell>
 
-                                <Table.Cell className="right aligned">
-                                    {item.price}
-                                </Table.Cell>
+                               
+                                <TableCell>
+                                    <Icon link name='plus' style={{color:'green'}} />
+                                </TableCell>
+                                <TableCell>
+                                    <Icon link name='minus' style={{color:'blue'}} />
+                                </TableCell>
+
                                 
-                                <Table.Cell className="center aligned">
+                                
+                                <TableCell className="center aligned">
                                     <Icon link name='delete' style={{color:'red'}} onClick={() => handleDelete(item._id)} />
                                         
                                         
                                     
-                                </Table.Cell>
-                            </Table.Row>
+                                </TableCell>
+                            </TableRow>
                         ))}
-                    </Table.Body>
+                    </TableBody>
                 </Table>
                 ):(
-                    <p style={{ color:'aliceblue' }}>--Add items with the Add Item button--</p>
+                    <p style={{ color:'yellow' }}>--Add items with the Add Item button--</p>
                 )}
                 </div>
             </div>
-
             
             <div style={{ marginTop: '40px' }}>
             <p>Order allows you to add quantity to an existing item.</p>
