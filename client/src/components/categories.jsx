@@ -198,16 +198,6 @@ export default function Categories() {
                 )}
                 </div>
             </div>
-            {/* commented out both buttons because of icons */}
-            {/* <div style={{ marginTop: '40px' }}>
-            <p>Order allows you to add quantity to an existing item.</p>
-            <button className='ui green button' onClick={openModalNewOrder}>Order</button>
-            </div>
-            
-            <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-                <p>Receipt allows you to deduct quantity from an existing item.</p>
-                <button className='ui red button' onClick={openModalReceipt}>Receipt</button>
-            </div> */}
 
             {/* This div provides a buffer for footer. Do not remove */}
             <div style={{ height: '50px' }}></div>
