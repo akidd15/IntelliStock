@@ -71,27 +71,33 @@ export default function AddItem({ isOpen, onClose }) {
         <Modal open={isOpen} onClose={onClose}>
             <Modal.Header>Add New Item</Modal.Header>
             <Modal.Content>
-                <label htmlFor='newItem'>Name:</label>
-                <Input
-                    id='newItem'
-                    placeholder="Item Name"
-                    value={newItem}
-                    onChange={handleItem}
-                />
-                <label htmlFor='quantity'>Quantity:</label>
-                <Input
-                    id='quantity'
-                    placeholder="Quantity"
-                    value={quantity}
-                    onChange={handleQuantity}
-                />
-                <label htmlFor='price'>Price:</label>
-                <Input
-                    id='price'
-                    placeholder="Price"
-                    value={price}
-                    onChange={handlePrice}
-                />
+                <div>
+                    <label htmlFor='newItem'><b>Enter Item Name</b></label>
+                    <Input style={{ marginLeft: '10px' }}
+                        id='newItem'
+                        placeholder="Item Name"
+                        value={newItem}
+                        onChange={handleItem}
+                    />
+                </div>
+                <div style={{ marginTop: '10px' }}>
+                    <label htmlFor='quantity'><b>Enter a Quantity</b></label>
+                    <Input style={{ marginLeft: '10px' }}
+                        id='quantity'
+                        placeholder="Quantity"
+                        value={quantity}
+                        onChange={handleQuantity}
+                    />
+                </div>
+                <div style={{ marginTop: '10px' }}>
+                    <label htmlFor='price'><b>Enter Item Price</b></label>
+                    <Input style={{ marginLeft: '10px' }}
+                        id='price'
+                        placeholder="Price"
+                        value={price}
+                        onChange={handlePrice}
+                    />
+                </div>
             </Modal.Content>
             <Modal.Actions>
                 <Button color='red' onClick={() => { resetForm(); onClose(); }}>

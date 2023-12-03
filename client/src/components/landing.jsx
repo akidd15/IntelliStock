@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { LoginForm } from './loginform';
 import { SignUpForm } from './signupform';
+import IconLogo from '../assets/images/intelliStock_logo.png'
 
 export default function Landing() {
   const [emailError, setEmailError] = useState('');
@@ -40,7 +41,8 @@ export default function Landing() {
           alignItems: 'center',
           background: 'linear-gradient(to bottom, #1d2b38, #2c3e50)', // Adjust the color values
         }}>
-          <h1 style={{ marginBottom:'70px'}}>Welcome to Intellistock</h1>
+          <img src={IconLogo} alt='IntelliStock icon logo' style={{ marginBottom: '-50px', maxHeight: '550px', maxWidth: '550px' }}></img>
+          <h1 style={{ marginBottom:'30px', fontSize: '40px' }}>Welcome to IntelliStock</h1>
           <p style={{ color: 'white', fontSize: '15px', lineHeight: '2.15' }}>
             – Your Intelligent Inventory Management Solution. Streamline your inventory tracking effortlessly, ensuring precision and control over your stock. Gain insights, make informed decisions, and elevate your inventory management experience with IntelliStock. Sign up now and embrace a smarter way to manage your stock!
           </p>
