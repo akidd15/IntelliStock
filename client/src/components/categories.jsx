@@ -37,7 +37,8 @@ export default function Categories() {
         variables: { categoryId: categoryId },
     });
     // possible variable being passed to NewOrder
-    const [currentData, setCurrentData]=useState('')
+    const [currentData, setCurrentData]=useState('');
+    const [currentReceiptData, setCurrentReceiptData]=useState('');
 
     // check if there is data and if there is store it in category
     // category is necessary to grab information
@@ -67,7 +68,8 @@ export default function Categories() {
     }
     // sets modal to true which opens the modal
     // messing around with this one
-    function openModalReceipt() {
+    const openModalReceipt = async(value) => {
+        setCurrentReceiptData(value)
         setModalOpenReceipt(true);
     }
     // sets to false which closes the modal
@@ -182,7 +184,7 @@ export default function Categories() {
                                 </TableCell>
                                 {/* minus icon. will open Receipt modal */}
                                 <TableCell>
-                                    <Icon link name='minus' style={{color:'blue'}} onClick={openModalReceipt}/>
+                                    <Icon link name='minus' style={{color:'blue'}} onClick={() => openModalReceipt(item)}/>
                                 </TableCell>
                                 {/* will delete item when clicked */}
                                 <TableCell className="center aligned">
@@ -205,7 +207,7 @@ export default function Categories() {
             <NewOrder
                 isOpen={modalOpenNewOrder}
                 onClose={closeModalNewOrder}
-                items={items}
+                // these variables allow NewOrder to compare current data to updated
                 name={currentData.itemName}
                 quantity={currentData.quantity}
                 price={currentData.price}
@@ -215,7 +217,11 @@ export default function Categories() {
             <Receipt
                 isOpen={modalOpenReceipt}
                 onClose={closeModalReceipt}
-                items={items}
+                // current data variables
+                currentName={currentReceiptData.itemName}
+                currentQuantity={currentReceiptData.quantity}
+                currentPrice={currentReceiptData.price}
+                currentItemId={currentReceiptData._id}
             />
             
         </div>
