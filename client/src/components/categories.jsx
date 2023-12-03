@@ -63,9 +63,10 @@ export default function Categories() {
     }
 
     return (
-        <div className='ui container' style={{ marginTop: '75px',
-        textAlign: 'center',
-        height: '75%'
+        <div className='ui container' style={{
+            marginTop: '75px',
+            textAlign: 'center',
+            height: '75%'
         }}>
             
             <div style={{ display:'flex' }}>
@@ -74,9 +75,9 @@ export default function Categories() {
                 </Link>
             </div>
 
-            <h4 style={{margin:'1px'}}>Category Name:</h4>
-            
-            <h2 style={{ fontSize: '50px', marginTop:'1px' }}>{category.categoryName}</h2>
+            <h4 style={{ margin: '1px', color: 'whitesmoke' }}>Category Name:</h4>
+
+            <h2 style={{ fontSize: '50px', marginTop: '1px', color: 'whitesmoke' }}>{category.categoryName}</h2>
 
             <p>Keep track of items in <span>"{category.categoryName}"</span> by adding them below</p>
 
@@ -98,16 +99,16 @@ export default function Categories() {
                     </thead>
                     <tbody>
                         {items.map((item) => (
-                        <tr key={item._id}>
-                            <td>{item.itemName}</td>
-                            <td className="right aligned">{item.quantity}</td>
-                            <td className="right aligned">{item.price}</td>
-                            <td className="center aligned">
-                                <button className="ui red button" onClick={() => handleDelete(item._id)}>
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
+                            <tr key={item._id}>
+                                <td>{item.itemName}</td>
+                                <td className="right aligned">{item.quantity}</td>
+                                <td className="right aligned">{item.price}</td>
+                                <td className="center aligned">
+                                    <button className="ui red button" onClick={() => handleDelete(item._id)}>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
                         ))}
                     </tbody>
                 </table>
@@ -119,17 +120,16 @@ export default function Categories() {
             <button className='ui green button' onClick={openModalNewOrder}>Order</button>
             </div>
 
-            <div style={{ marginTop: '20px', marginBottom:'20px' }}>
-                <p>Receipt allows you to deduct quantity from an existing item.</p>
-            <button className='ui red button' onClick={openModalReceipt}>Receipt</button>
-            </div>
-            <div style={{height:'50px'}}></div>
-
             <NewOrder
                 isOpen={modalOpenNewOrder}
                 onClose={closeModalNewOrder}
                 items={items}
             />
+
+            <div style={{ marginTop: '20px', marginBottom:'20px' }}>
+            <button className='ui red button' onClick={openModalReceipt}>Receipt</button>
+            </div>
+            <div style={{height:'50px'}}></div>
 
             <Receipt
                 isOpen={modalOpenReceipt}
