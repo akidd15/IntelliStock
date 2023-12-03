@@ -130,11 +130,6 @@ export default function Categories() {
                 items={items}
             />
 
-            <div style={{ marginTop: '20px', marginBottom:'20px' }}>
-            <button className='ui red button' onClick={openModalReceipt}>Receipt</button>
-            </div>
-            <div style={{height:'50px'}}></div>
-
             <Receipt
                 isOpen={modalOpenReceipt}
                 onClose={closeModalReceipt}
