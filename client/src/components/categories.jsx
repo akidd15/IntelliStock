@@ -51,6 +51,7 @@ export default function Categories() {
     }
 
     function closeModalReceipt() {
+        
         setModalOpenReceipt(false);
     }
 
@@ -59,6 +60,7 @@ export default function Categories() {
     }
 
     function closeModalNewOrder() {
+        
         setModalOpenNewOrder(false);
     }
 
@@ -100,7 +102,7 @@ export default function Categories() {
                     <tbody>
                         {items.map((item) => (
                             <tr key={item._id}>
-                                <td>{item.itemName}</td>
+                                <td>{item.itemName.charAt(0).toUpperCase() + item.itemName.slice(1)}</td>
                                 <td className="right aligned">{item.quantity}</td>
                                 <td className="right aligned">{item.price}</td>
                                 <td className="center aligned">
