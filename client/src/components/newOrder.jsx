@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
-import { Modal, Button, Dropdown, Input, Message } from 'semantic-ui-react';
+import { Modal, Button, Input, Message } from 'semantic-ui-react';
 import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM } from '../utils/mutations';
-
-export default function NewOrder({ isOpen, onClose, items }) {
+// passing in currentData to test a theory
+export default function NewOrder({ isOpen, onClose, itemId, name, quantity, price }) {
   const [orderQuantity, setOrderQuantity] = useState('');
   const [orderPrice, setOrderPrice] = useState('');
-  const [orderNames, setOrderNames] = useState('');
+  // why does this exist? Might be useful for varifying
   const [orderOldQuantity, setOrderOldQuantity] = useState('');
-  const [orderItemId, setOrderItemId] = useState(null);
-  const [updateOrderItem, { error, data }] = useMutation(UPDATE_ITEM);
+  
+  const [updateOrderItem] = useMutation(UPDATE_ITEM);
   const [errorText, setErrorText] = useState('');
-
-  function handleOrderItem(e, { value }) {
-    setOrderNames(value.itemName);
-    setOrderItemId(value._id);
-    setOrderOldQuantity(value.quantity);
-    setErrorText('');
-  }
 
   function handleOrderQuantity(e, { value }) {
     setOrderQuantity(value);
@@ -30,25 +23,25 @@ export default function NewOrder({ isOpen, onClose, items }) {
   function resetOrderForm() {
     setOrderQuantity('');
     setOrderPrice('');
-    setOrderNames('');
+    setErrorText('');
   }
 
   const handleOrderSubmit = async (event) => {
     event.preventDefault();
-
-    if (orderItemId === null) {
+    if (itemId === null) {
       setErrorText('Please select an item.');
       return;
     }
 
     try {
-      setOrderOldQuantity(Number(orderOldQuantity) + Number(orderQuantity));
+      // what does this do?
+      setOrderOldQuantity(Number(quantity) + Number(orderQuantity));
 
       await updateOrderItem({
         variables: {
-          itemId: orderItemId,
-          itemName: orderNames,
-          quantity: Number(orderOldQuantity) + Number(orderQuantity),
+          itemId: itemId,
+          itemName: name,
+          quantity: Number(quantity) + Number(orderQuantity),
           price: orderPrice !== '' ? Number(orderPrice) : undefined,
         }
       });
@@ -56,7 +49,8 @@ export default function NewOrder({ isOpen, onClose, items }) {
       resetOrderForm();
       onClose();
     } catch (error) {
-      setOrderOldQuantity(orderOldQuantity);
+      // what is this?
+      setOrderOldQuantity(quantity);
     }
   }
 
@@ -70,17 +64,12 @@ export default function NewOrder({ isOpen, onClose, items }) {
             <Message.Header>{errorText}</Message.Header>
           </Message>
         )}
-        <Dropdown.Header>Select Item</Dropdown.Header>
-        <Dropdown
-          fluid
-          placeholder='Select Item'
-          selection
-          options={items.map(item => ({ value: item, text: item.itemName }))}
-          onChange={handleOrderItem}
-        />
 
-        <label htmlFor='orderQuantity'>Quantity Ordered</label>
-        <br />
+        {/* new for currentData */}
+        <h1>{name}</h1>
+
+        <label htmlFor='orderQuantity'>Current quantity: {quantity} +</label>
+        
         <Input
           id="orderQuantity"
           placeholder="Quantity"
@@ -89,15 +78,15 @@ export default function NewOrder({ isOpen, onClose, items }) {
         />
 
         <br />
-        <label htmlFor='orderPrice'>Price</label>
-        <br />
+        <label htmlFor='orderPrice'>Current price: ${price} New price: </label>
+        
         <Input
           id="orderPrice"
           placeholder="Price"
           value={orderPrice}
           onChange={handleOrderPrice}
         />
-        <p> Note: (Leave blank if prices haven't changed)</p>
+        <p> Note: (Leave blank if prices have not changed)</p>
       </Modal.Content>
       <Modal.Actions>
         <Button color='red' onClick={() => { resetOrderForm(); onClose(); }}>
