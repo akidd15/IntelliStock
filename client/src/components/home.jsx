@@ -48,13 +48,13 @@ const Home = () => {
   return (
     <div className="main-container" style={{ backgroundColor: '#2c3e50', color: 'white', height: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
       <div className="list-container" style={{ textAlign: 'center', width: '50%' }}>
-        <h1 style={{ paddingTop: '30px', paddingBottom: '10px', marginTop: 0 }}>Welcome!</h1>
+        <h1 style={{ paddingTop: '30px', paddingBottom: '10px', marginTop: 0 }}>Welcome, {user.username}!</h1>
         <h3 style={{ paddingBottom: '20px' }}>My Categories</h3>
         <List relaxed style={{ paddingBottom: '20px' }}>
           {categories.map((category) => (
             <List.Item key={category._id}>
               <List.Content>
-                <Link to={`/categories/${category._id}`} style={{ color: 'white', textDecoration: 'none' }}>{category.categoryName}</Link>
+                <Link to={`/categories/${category._id}`} style={{ color: 'white', textDecoration: 'none' }}>{category.categoryName.charAt(0).toUpperCase() + category.categoryName.slice(1)}</Link>
               </List.Content>
             </List.Item>
           ))}
