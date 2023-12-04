@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Modal, Button, Input, Message } from 'semantic-ui-react';
 import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM } from '../utils/mutations';
+
 // passing in currentData to test a theory
 export default function NewOrder({ isOpen, onClose, itemId, name, quantity, price }) {
   const [orderQuantity, setOrderQuantity] = useState('');
   const [orderPrice, setOrderPrice] = useState('');
   // why does this exist? Might be useful for varifying
   const [orderOldQuantity, setOrderOldQuantity] = useState('');
-  
+
   const [updateOrderItem] = useMutation(UPDATE_ITEM);
   const [errorText, setErrorText] = useState('');
 
@@ -56,9 +57,11 @@ export default function NewOrder({ isOpen, onClose, itemId, name, quantity, pric
 
   return (
     <Modal open={isOpen} onClose={onClose} closeOnDimmerClick={false}>
-      <Modal.Header>Create New Order</Modal.Header>
-      <Modal.Content>
-      <p>Create a new order when you would like to add more stock to inventory!</p>
+      <Modal.Header style={{ color: 'teal' }}>Create New Order</Modal.Header>
+      <Modal.Content >
+        <div style={{ textAlign: 'center', fontVariant: 'normal' }}>
+          <p>Create a new order when you would like to add more stock to inventory!</p>
+        </div>
         {errorText && (
           <Message negative>
             <Message.Header>{errorText}</Message.Header>
@@ -66,11 +69,11 @@ export default function NewOrder({ isOpen, onClose, itemId, name, quantity, pric
         )}
 
         {/* new for currentData */}
-        <h1>{name}</h1>
-
-        <label htmlFor='orderQuantity'>Current quantity: {quantity} +</label>
+        <h1 style={{ color: 'teal', fontSize: '40px' }}>{name}</h1>
         
-        <Input
+          <label htmlFor='orderQuantity'>Current quantity: {quantity} +</label>
+        
+        <Input style={{  float: 'right', marginTop:'-20px' }}
           id="orderQuantity"
           placeholder="Quantity"
           value={orderQuantity}
@@ -79,14 +82,16 @@ export default function NewOrder({ isOpen, onClose, itemId, name, quantity, pric
 
         <br />
         <label htmlFor='orderPrice'>Current price: ${price} New price: </label>
-        
-        <Input
+
+        <Input style={{ float: 'right' }}
           id="orderPrice"
           placeholder="Price"
           value={orderPrice}
           onChange={handleOrderPrice}
         />
-        <p> Note: (Leave blank if prices have not changed)</p>
+        <div style={{ textAlign: 'center', fontSize: '12px', marginTop: '15px', padding: '5px' }}>
+          <p> Note: Leave "Price" blank if prices have not changed</p>
+        </div>
       </Modal.Content>
       <Modal.Actions>
         <Button color='red' onClick={() => { resetOrderForm(); onClose(); }}>
