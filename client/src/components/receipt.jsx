@@ -90,21 +90,23 @@ export default function Receipt({
 
   return (
     <Modal open={isOpen} onClose={onClose} closeOnDimmerClick={false}>
-      <Modal.Header>Create New Receipt</Modal.Header>
+      <Modal.Header style={{ color: 'teal'}}>Create New Receipt</Modal.Header>
       <Modal.Content>
         {errorText && (
           <Message negative>
             <Message.Header>{errorText}</Message.Header>
           </Message>
         )}
+        <div style={{ textAlign: 'center', fontVariant: 'normal'}}>
         <p>Used some of your inventory? Create a receipt to keep track of what you used and update stock!</p>
+        </div>
         <div>
-         <h1>{currentName}</h1>
+         <h1 style={{color: 'teal', fontSize: '40px'}}>{currentName}</h1>
         </div>
         <div>
           <label htmlFor='receiptQuantity'>Current quantity: {currentQuantity} -</label>
           
-          <Input
+          <Input style={{ float: 'right', marginTop:'-20px' }}
             id='receiptQuantity'
             placeholder="Quantity"
             value={receiptQuantity}
@@ -114,12 +116,15 @@ export default function Receipt({
         <div>
           <label htmlFor='receiptPrice'>Current price: ${currentPrice} New price: </label>
           
-          <Input
+          <Input style={{ float: 'right' }}
             id='receiptPrice'
             placeholder="Price"
             value={receiptPrice}
             onChange={handlePrice}
-          /> <p> Note: (Leave blank if prices have not changed)</p>
+          /> 
+          <div style={{textAlign: 'center', fontSize:'12px', marginTop:'15px', padding: '5px' }}>
+             <p> Note: Leave "Price" blank if prices have not changed</p>
+          </div>
         </div>
       </Modal.Content>
       <Modal.Actions>
