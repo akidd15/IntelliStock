@@ -62,6 +62,7 @@ export default function Landing() {
             background: 'linear-gradient(to bottom, #1d2b38, #2c3e50)', // Adjust the color values
           }}
         >
+          <p style={{ fontSize: '30px' }}>Sign in to start tracking!</p>
           <Segment inverted style={{ width: '70%', padding: '20px', borderRadius: '5px' }}>
             {!showSignUpForm ? (
               <LoginForm

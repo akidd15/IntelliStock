@@ -5,6 +5,7 @@ import { ADD_CATEGORY } from "../utils/mutations";
 import { QUERY_USER } from "../utils/queries";
 import { Input, Button, List, Grid, Card } from "semantic-ui-react";
 import Auth from '../utils/auth';
+import './home.css'
 
 const Home = () => {
   const [newCategory, setNewCategory] = useState('');
@@ -51,20 +52,22 @@ const Home = () => {
         <h1 style={{ paddingTop: '30px', paddingBottom: '10px', marginTop: 0 }}>Welcome, {user.username}!</h1>
         <h3 style={{ paddingBottom: '20px', fontSize: '30px' }}>My Categories</h3>
         {/* Render Cards as Links */}
-        <Card.Group itemsPerRow={4} style={{ paddingBottom: '20px' }}>
+        <Card.Group className="card-container" itemsPerRow={4} style={{ paddingBottom: '20px' }}>
           {categories.map((category) => (
             <Card
               key={category._id}
               as={Link}
               to={`/categories/${category._id}`}
-              style={{
-                width: '150px',
-                height: '150px',
-                boxShadow: '0 4px 8px teal'
-              }}
+              className="card"
+              // style={{
+              //   backgroundColor: '#026aab',
+              //   width: '150px',
+              //   height: '150px',
+              //   boxShadow: '0 2px 4px teal'
+              // }}
             >
               <Card.Content>
-                <Card.Header style={{ marginTop: '40px', fontSize: '30px', color: '#2c3e50' }}>
+                <Card.Header className='dynamic-font-size card-header' style={{ marginTop: '40px', color: 'white' }}>
                   {category.categoryName.charAt(0).toUpperCase() + category.categoryName.slice(1)}
                 </Card.Header>
                 {/* Add more details as needed */}

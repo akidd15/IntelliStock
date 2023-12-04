@@ -1,0 +1,48 @@
+.dynamic-font-size {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dynamic-font-size span {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 20px;
+  max-width: 100%;
+}
+
+.card-container {
+  padding-bottom: 20px;
+}
+
+.card {
+  width: 150px !important;
+  height: 150px !important;
+  box-shadow: 0 2px 4px teal !important;
+  background-color: #026aab !important;
+  transition: background-color 0.3s, color 0.3s !important;
+}
+
+.card:hover {
+  background-color: #004976 !important;
+  box-shadow: 0 2px 4px gray !important;
+}
+
+.card-header {
+  margin-top: 40px;
+  color: white;
+}
+
+@media (max-width: 767px) {
+  .card {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .card-container {
+    padding-bottom: 10px;
+  }
+}
+
