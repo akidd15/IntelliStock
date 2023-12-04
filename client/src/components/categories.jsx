@@ -91,7 +91,7 @@ export default function Categories() {
     return (
         // place all content in a container and centered it on the page
         <div className='ui container' style={{
-            marginTop: '75px',
+            marginTop: '50px',
             textAlign: 'center',
             height: '75%',
             // this sets the text for the entire page to default to 'whitesmoke'

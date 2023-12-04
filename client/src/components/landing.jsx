@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 import { LoginForm } from './loginform';
 import { SignUpForm } from './signupform';
-import IconLogo from '../assets/images/intelliStock_logo.png'
+import IconLogo from '../assets/images/intelliStock_logo.png';
 
 export default function Landing() {
   const [emailError, setEmailError] = useState('');
