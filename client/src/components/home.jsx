@@ -47,12 +47,31 @@ const Home = () => {
   };
 
   return (
-    <div className="main-container" style={{ backgroundColor: '#2c3e50', color: 'white', height: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-      <div className="list-container" style={{ textAlign: 'center', width: '50%' }}>
+    <div 
+      className="main-container" 
+      style={{ 
+        backgroundColor: '#2c3e50', 
+        color: 'white',
+        minHeight: '100vh', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        padding: '20px' }}>
+      <div 
+        className="list-container" 
+        style={{ 
+          textAlign: 'center', 
+          width: '50%',
+          // maxWidth: '600px' 
+        }}>
         <h1 style={{ paddingTop: '30px', paddingBottom: '10px', marginTop: 0 }}>Welcome, {user.username}!</h1>
         <h3 style={{ paddingBottom: '20px', fontSize: '30px' }}>My Categories</h3>
+        <p>Add category name of items you would like to track.</p>
         {/* Render Cards as Links */}
-        <Card.Group className="card-container" itemsPerRow={4} style={{ paddingBottom: '20px' }}>
+        <Card.Group 
+          className="card-container" 
+          itemsPerRow={4} 
+          style={{ paddingBottom: '20px' }}>
           {categories.map((category) => (
             <Card
               key={category._id}
@@ -71,7 +90,7 @@ const Home = () => {
                   {category.categoryName.charAt(0).toUpperCase() + category.categoryName.slice(1)}
                 </Card.Header>
                 {/* Add more details as needed */}
-                {/* <Card.Description>{category.description}</Card.Description> */}
+                <Card.Description>items being tracked {category.items.length}</Card.Description>
               </Card.Content>
             </Card>
           ))}
