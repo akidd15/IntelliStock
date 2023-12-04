@@ -121,13 +121,13 @@ export default function Categories() {
             <div className="ui container">
                 {/* button for calling AddItem */}
                 <div style={{}}>                    
-                    <Button color='blue' style={{ marginTop: '10px', marginBottom: '20px' }} onClick={openModalAddItem}>Add Item</Button>
+                    <Button color='teal' style={{ marginTop: '10px', marginBottom: '20px' }} onClick={openModalAddItem}>Add Item</Button>
                 </div>
 
                 <div>
                 {/* checks if there is items. if yes it returns the table */}
                 {items.length > 0 ? (
-                <Table color='teal' key={'teal'} celled inverted>
+                <Table color='blue' key={'teal'} celled inverted>
                     <TableHeader>
                         <TableRow>
                             <TableHeaderCell colSpan='6'>
@@ -163,7 +163,7 @@ export default function Categories() {
                             <TableRow key={item._id}>
                                 {/* name of item */}
                                 <TableCell>
-                                    <Label color='blue' style={{ fontSize:'18px' }} ribbon>
+                                    <Label color='teal' style={{ fontSize:'18px' }} ribbon>
                                         {/* uppercases the first letter of every Item */}
                                         {item.itemName.charAt(0).toUpperCase() + item.itemName.slice(1)}
                                     </Label>
