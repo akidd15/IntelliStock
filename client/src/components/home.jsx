@@ -83,6 +83,8 @@ const Home = () => {
           style={{ width: '100%', paddingBottom: '10px' }}
         />
         <Button color="blue" onClick={handleAddCategory}>Add Category</Button>
+        {/* This div provides a buffer for footer. Do not remove */}
+      <div style={{ height: '100px' }}></div>
       </div>
       {popUp && (
         <div className="pop-up-container">
@@ -90,6 +92,7 @@ const Home = () => {
           </div>
         </div>
       )}
+      
     </div>
   );
 };

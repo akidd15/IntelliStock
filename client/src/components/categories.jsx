@@ -93,7 +93,7 @@ export default function Categories() {
         <div className='ui container' style={{
             marginTop: '50px',
             textAlign: 'center',
-            height: '75%',
+            height: '100%',
             // this sets the text for the entire page to default to 'whitesmoke'
             color: 'whitesmoke',
             // font size for entire page. unless otherwise stated
@@ -202,7 +202,7 @@ export default function Categories() {
             </div>
 
             {/* This div provides a buffer for footer. Do not remove */}
-            <div style={{ height: '50px' }}></div>
+            <div style={{ height: '100px' }}></div>
             {/* NewOrder link */}
             <NewOrder
                 isOpen={modalOpenNewOrder}
