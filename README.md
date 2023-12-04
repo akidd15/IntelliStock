@@ -1,18 +1,17 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-# Link https://intellistock-production.up.railway.app/
 
 # Intellistock - Inventory Tracking Full Stack App
 
 Intellistock is a full-stack web application built with Vite and React, designed for efficient inventory tracking. It provides a user-friendly interface for managing and monitoring your inventory, helping businesses keep track of stock levels, sales, and restocking needs.
 
 # Table of Contents
-  - [Link](#Link)
   - [Features](#features)
   - [Technologies](#techologies)
   - [Getting Started](#getting-started)
   - [License](#license)
   - [Contributors](#contributors)
+  - [Link](#Link)
   - [Image](#Image)
 
 ## Features
@@ -32,8 +31,9 @@ Intellistock is a full-stack web application built with Vite and React, designed
 
 1. Clone the repository:
 
-   ```bash
+   ```
    git clone https://github.com/akidd15/intellistock.git
+   ```
 
 2. Navigate to the project directory and install dependencies `npm install`
 
@@ -59,8 +59,9 @@ Jacob Maughan - [Github](https://github.com/jacslimob)
 Jacob Preciado - [Github](https://github.com/jmpre28)
 
 
+# Link 
 
-[GitHub Profile](https://github.com/)
+- [Deployment](https://intellistock-production.up.railway.app/)
 
 ## Image 
 ![IntelliStock](./client/src/assets/images/IntelliStock_ss.jpeg)
