@@ -203,6 +203,7 @@ export default function Categories() {
 
             {/* This div provides a buffer for footer. Do not remove */}
             <div style={{ height: '100px' }}></div>
+            
             {/* NewOrder link */}
             <NewOrder
                 isOpen={modalOpenNewOrder}

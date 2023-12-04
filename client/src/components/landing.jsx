@@ -18,30 +18,48 @@ export default function Landing() {
   };
 
   return (
+    <>
     <Grid
       style={{ textAlign: "center",
-      height: '90vh',
-      backgroundColor: 'white', 
+      height: 'auto',
+       
       color: 'white',
       margin: 0, 
       padding: 0, 
       overflow: 'hidden',
-      marginBottom: '-4px' }}
-      verticalAlign="middle"
+      // marginBottom: '-4px' 
+      }}
+      verticalAlign='middle'
       stackable
     >
-      <Grid.Row style={{ height: '100%' }}>
+      {/* <Grid.Row style={{ height: '100%' }}> */}
         {/* Left half */}
-        <Grid.Column width={8} style={{
-          height: '100%',
-          display: 'flex',
-          paddingLeft: '25px',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          background: 'linear-gradient(to bottom, #1d2b38, #2c3e50)', // Adjust the color values
-        }}>
-          <img src={IconLogo} alt='IntelliStock icon logo' style={{ marginBottom: '-50px', maxHeight: '550px', maxWidth: '550px' }}></img>
+        <Grid.Column 
+          width={16}
+          mobile={16}
+          tablet={8}
+          computer={8} 
+          style={{
+            height: 'auto',
+            display: 'flex',
+            paddingLeft: '25px',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            background: 'linear-gradient(to bottom, #1d2b38, #2c3e50)', // Adjust the color values
+          }}>
+          <img 
+            src={IconLogo} 
+            alt='IntelliStock icon logo' 
+            style={{ 
+              marginBottom: '-50px', 
+              maxHeight: '550px', 
+              maxWidth: '550px',
+              width: '100%',
+              height: 'auto' 
+              }}>
+
+          </img>
           <h1 style={{ marginBottom:'30px', fontSize: '40px' }}>Welcome to IntelliStock</h1>
           <p style={{ color: 'white', fontSize: '15px', lineHeight: '2.15' }}>
             – Your Intelligent Inventory Management Solution. Streamline your inventory tracking effortlessly, ensuring precision and control over your stock. Gain insights, make informed decisions, and elevate your inventory management experience with IntelliStock. Sign up now and embrace a smarter way to manage your stock!
@@ -51,10 +69,13 @@ export default function Landing() {
 
         {/* Right half */}
         <Grid.Column
-          width={8}
+          width={16}
+          mobile={16}
+          tablet={8}
+          computer={8} 
           style={{
             backgroundColor: '#2c3e50', // Background color
-            height: '100%',
+            height: 'auto',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -63,7 +84,7 @@ export default function Landing() {
           }}
         >
           <p style={{ fontSize: '30px' }}>Sign in to start tracking!</p>
-          <Segment inverted style={{ width: '70%', padding: '20px', borderRadius: '5px' }}>
+          <Segment inverted style={{ width: '90%', padding: '20px', borderRadius: '5px' }}>
             {!showSignUpForm ? (
               <LoginForm
                 
@@ -82,12 +103,20 @@ export default function Landing() {
                 <span onClick={handleSignUpClick} style={{ cursor: 'pointer', color: '#3498db' }}>
                   Sign up here
                 </span>
+                
               </p>
+              
             )}
           </Segment>
         </Grid.Column>
-      </Grid.Row>
+      {/* </Grid.Row> */}
+      
     </Grid>
+
+    {/* This div provides a buffer for footer. Do not remove */}
+    <div style={{ height: '50px' }}></div>
+    
+    </>
   );
 }
 
