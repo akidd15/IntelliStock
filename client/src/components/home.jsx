@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CATEGORY } from "../utils/mutations";
 import { QUERY_USER } from "../utils/queries";
-import { Input, Button, List, Grid } from "semantic-ui-react";
+import { Input, Button, List, Grid, Card } from "semantic-ui-react";
 import Auth from '../utils/auth';
 
 const Home = () => {
@@ -49,16 +49,30 @@ const Home = () => {
     <div className="main-container" style={{ backgroundColor: '#2c3e50', color: 'white', height: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
       <div className="list-container" style={{ textAlign: 'center', width: '50%' }}>
         <h1 style={{ paddingTop: '30px', paddingBottom: '10px', marginTop: 0 }}>Welcome, {user.username}!</h1>
-        <h3 style={{ paddingBottom: '20px' }}>My Categories</h3>
-        <List relaxed style={{ paddingBottom: '20px' }}>
+        <h3 style={{ paddingBottom: '20px', fontSize: '30px' }}>My Categories</h3>
+        {/* Render Cards as Links */}
+        <Card.Group itemsPerRow={4} style={{ paddingBottom: '20px' }}>
           {categories.map((category) => (
-            <List.Item key={category._id}>
-              <List.Content>
-                <Link to={`/categories/${category._id}`} style={{ color: 'white', textDecoration: 'none' }}>{category.categoryName.charAt(0).toUpperCase() + category.categoryName.slice(1)}</Link>
-              </List.Content>
-            </List.Item>
+            <Card
+              key={category._id}
+              as={Link}
+              to={`/categories/${category._id}`}
+              style={{
+                width: '150px',
+                height: '150px',
+                boxShadow: '0 4px 8px teal'
+              }}
+            >
+              <Card.Content>
+                <Card.Header style={{ marginTop: '40px', fontSize: '30px', color: '#2c3e50' }}>
+                  {category.categoryName.charAt(0).toUpperCase() + category.categoryName.slice(1)}
+                </Card.Header>
+                {/* Add more details as needed */}
+                {/* <Card.Description>{category.description}</Card.Description> */}
+              </Card.Content>
+            </Card>
           ))}
-        </List>
+        </Card.Group>
         <Input
           fluid
           icon="tags"
@@ -68,7 +82,7 @@ const Home = () => {
           onChange={(e) => setNewCategory(e.target.value)}
           style={{ width: '100%', paddingBottom: '10px' }}
         />
-        <Button color="white" onClick={handleAddCategory}>Add Category</Button>
+        <Button color="blue" onClick={handleAddCategory}>Add Category</Button>
       </div>
       {popUp && (
         <div className="pop-up-container">
