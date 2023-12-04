@@ -1,6 +1,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-# Link https://intellistock-production.up.railway.app/
+# Link 
+
+- [Deployment](https://intellistock-production.up.railway.app/)
 
 # Intellistock - Inventory Tracking Full Stack App
 
