@@ -56,7 +56,7 @@ Alissa Patterson - [Github](https://github.com/Apatterson32)
 Jacob Maughan - [Github](https://github.com/jacslimob)
 
 
-Jacob Preciado - [Github](https://github.com/jmpre28)
+Jacob Preciado - [Github](https://github.com/jakepreciado)
 
 
 # Link 
